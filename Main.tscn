@@ -1,0 +1,148 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://scripts/player_modules/input.gd" type="Script" id=1]
+[ext_resource path="res://scripts/player_modules/mover.gd" type="Script" id=2]
+[ext_resource path="res://scripts/main.gd" type="Script" id=3]
+[ext_resource path="res://scripts/player_modules/player.gd" type="Script" id=4]
+[ext_resource path="res://scripts/egg_cannon.gd" type="Script" id=6]
+
+[sub_resource type="BoxShape" id=15]
+extents = Vector3( 15.3834, 9.02123, 1 )
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 15, 1, 8 )
+
+[sub_resource type="SpatialMaterial" id=14]
+albedo_color = Color( 0.0980392, 0.572549, 0.227451, 1 )
+
+[sub_resource type="CubeMesh" id=2]
+material = SubResource( 14 )
+size = Vector3( 30, 2, 16 )
+
+[sub_resource type="PhysicsMaterial" id=6]
+friction = 0.2
+bounce = 0.1
+
+[sub_resource type="CylinderShape" id=3]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="CylinderMesh" id=4]
+top_radius = 0.25
+bottom_radius = 0.25
+height = 1.0
+radial_segments = 16
+rings = 1
+
+[sub_resource type="BoxShape" id=10]
+extents = Vector3( 0.66, 0.1, 0.66 )
+
+[sub_resource type="SphereMesh" id=5]
+radius = 0.66
+height = 0.66
+
+[sub_resource type="SphereShape" id=11]
+radius = 0.5
+
+[sub_resource type="SphereMesh" id=12]
+radius = 0.5
+height = 1.0
+
+[sub_resource type="CubeMesh" id=16]
+size = Vector3( 1, 1, 2 )
+
+[node name="Main" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="Walls" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.27954, 9.00978 )
+shape = SubResource( 15 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.27954, -8.92939 )
+shape = SubResource( 15 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="Walls"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15.9891, 7.27954, -0.678744 )
+shape = SubResource( 15 )
+
+[node name="CollisionShape4" type="CollisionShape" parent="Walls"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -16.0631, 7.27954, -0.678744 )
+shape = SubResource( 15 )
+
+[node name="Floor" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Floor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Floor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Player" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.772918, 0 )
+mode = 2
+physics_material_override = SubResource( 6 )
+can_sleep = false
+script = ExtResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Player"]
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Player"]
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="CollisionShape2" type="CollisionShape" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.06166 )
+shape = SubResource( 10 )
+
+[node name="FryingPan" type="MeshInstance" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.05555 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="Mover" type="Node" parent="Player"]
+script = ExtResource( 2 )
+
+[node name="Input" type="Node" parent="Player"]
+script = ExtResource( 1 )
+player_num = 0
+
+[node name="Head" type="CollisionShape" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0 )
+shape = SubResource( 11 )
+
+[node name="FryingPan2" type="MeshInstance" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -0.999658, -0.0200745, 0.0167456, 0, 0.640566, 0.767904, -0.0261419, 0.767641, -0.640347, -0.082962, 12.2528, -11.9294 )
+current = true
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.912144, -0.394835, 0.109992, -0.11429, 0.0126969, 0.993366, -0.393613, -0.918664, -0.0335444, -18, 7, 0 )
+shadow_enabled = true
+
+[node name="EggCannon" type="Spatial" parent="."]
+transform = Transform( -3.09086e-08, 0.707107, -0.707107, 3.09086e-08, 0.707107, 0.707107, 1, 0, -4.37114e-08, 9, 1, 0 )
+script = ExtResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="EggCannon"]
+mesh = SubResource( 16 )
+material/0 = null
+
+[node name="Timer" type="Timer" parent="EggCannon"]
+wait_time = 5.0
+autostart = true
+
+[connection signal="button_press" from="Player/Input" to="Player/Mover" method="_on_Input_button_press"]
+[connection signal="button_release" from="Player/Input" to="Player/Mover" method="_on_Input_button_release"]
+[connection signal="move_vec" from="Player/Input" to="Player/Mover" method="_on_Input_move_vec"]
+[connection signal="timeout" from="EggCannon/Timer" to="EggCannon" method="_on_Timer_timeout"]
