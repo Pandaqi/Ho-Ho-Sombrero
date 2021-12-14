@@ -10,7 +10,7 @@ signal button_press()
 signal button_release()
 
 func get_key(key : String):
-	var device_num = GlobalInput.device_order[player_num]
+	var device_num = GInput.device_order[player_num]
 	return key + "_" + str(device_num)
 
 func set_player_num(num : int):

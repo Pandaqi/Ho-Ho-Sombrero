@@ -72,7 +72,7 @@ shape = SubResource( 15 )
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -16.0631, 7.27954, -0.678744 )
 shape = SubResource( 15 )
 
-[node name="Floor" type="StaticBody" parent="."]
+[node name="Floor" type="StaticBody" parent="." groups=["Breakers"]]
 
 [node name="CollisionShape" type="CollisionShape" parent="Floor"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
@@ -131,7 +131,7 @@ transform = Transform( 0.912144, -0.394835, 0.109992, -0.11429, 0.0126969, 0.993
 shadow_enabled = true
 
 [node name="EggCannon" type="Spatial" parent="."]
-transform = Transform( -3.09086e-08, 0.707107, -0.707107, 3.09086e-08, 0.707107, 0.707107, 1, 0, -4.37114e-08, 9, 1, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 9, 1, 0 )
 script = ExtResource( 6 )
 
 [node name="MeshInstance" type="MeshInstance" parent="EggCannon"]
