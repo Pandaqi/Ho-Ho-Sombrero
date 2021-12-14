@@ -3,7 +3,7 @@ extends Spatial
 var egg_scene = preload("res://scenes/egg.tscn")
 onready var main_node = get_node("/root/Main")
 
-const SHOOT_FORCE : float = 10.0
+const SHOOT_FORCE : float = 20.0
 
 func _ready():
 	call_deferred("_on_Timer_timeout")

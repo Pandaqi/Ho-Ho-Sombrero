@@ -1,7 +1,7 @@
 extends Node
 
 const ROT_SPEED : float = 2.0
-const MOVE_SPEED : float = 300.0
+const MOVE_SPEED : float = 700.0
 
 onready var body = get_parent()
 var input_vec
@@ -11,8 +11,10 @@ func _on_Input_move_vec(vec, dt):
 	input_vec = vec
 
 func _integrate_forces(state):
+	var cur_vel = state.get_linear_velocity()
+	
 	if input_vec.length() <= 0.03: 
-		state.set_linear_velocity(Vector3.ZERO)
+		state.set_linear_velocity(Vector3(0, cur_vel.y, 0))
 		return
 	
 	var a = Quat(state.transform.basis)
@@ -25,7 +27,8 @@ func _integrate_forces(state):
 	var c = a.slerp(b, 1.0 - (1.0/ROT_SPEED))
 	state.transform.basis = Basis(c)
 	
-	state.set_linear_velocity(state.transform.basis.z*fps_dt*MOVE_SPEED)
+	var wanted_vel = -state.transform.basis.z*fps_dt*MOVE_SPEED
+	state.set_linear_velocity(Vector3(wanted_vel.x, cur_vel.y, wanted_vel.z))
 
 func _on_Input_button_press():
 	pass # Replace with function body.

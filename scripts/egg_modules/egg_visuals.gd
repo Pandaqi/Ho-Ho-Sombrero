@@ -15,3 +15,6 @@ func set_type(tp : String):
 
 func convert_frame_to_offset(frame : int):
 	return Vector2(frame % 8, floor(frame/8.0))
+
+func set_delivered():
+	mesh_instance.material_override = null

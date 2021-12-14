@@ -4,6 +4,7 @@ var broken_egg_scene = preload("res://scenes/egg_broken.tscn")
 
 onready var body = get_parent()
 onready var main_node = get_node("/root/Main")
+onready var state = get_node("/root/Main/State")
 
 func _integrate_forces(state):
 	for i in range(state.get_contact_count()):
@@ -21,3 +22,4 @@ func destroy_myself():
 	
 	body.queue_free()
 	main_node.add_child(e)
+	state.on_egg_broken(body)
