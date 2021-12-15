@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scripts/player_modules/input.gd" type="Script" id=1]
 [ext_resource path="res://scripts/player_modules/mover.gd" type="Script" id=2]
@@ -17,12 +17,16 @@
 [ext_resource path="res://assets/fonts/kavoon_regular.ttf" type="DynamicFontData" id=15]
 [ext_resource path="res://scripts/game_over.gd" type="Script" id=16]
 [ext_resource path="res://scripts/powerups.gd" type="Script" id=17]
-
-[sub_resource type="BoxShape" id=15]
-extents = Vector3( 39.5531, 14.6, 1 )
+[ext_resource path="res://assets/ui/eggs.png" type="Texture" id=18]
+[ext_resource path="res://assets/ui/buttons.png" type="Texture" id=19]
+[ext_resource path="res://scripts/general_modules/wrapper.gd" type="Script" id=20]
+[ext_resource path="res://scripts/map.gd" type="Script" id=21]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 27.8667, 1, 17.7775 )
+
+[sub_resource type="BoxShape" id=15]
+extents = Vector3( 39.5531, 14.6, 1 )
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.2
@@ -51,6 +55,37 @@ top_radius = 3.0
 bottom_radius = 3.0
 height = 0.25
 
+[sub_resource type="Animation" id=28]
+resource_name = "IconFade"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icon:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.294118 ) ]
+}
+
+[sub_resource type="Animation" id=29]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icon:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
 [sub_resource type="CubeMesh" id=16]
 size = Vector3( 1, 1, 2 )
 
@@ -73,7 +108,10 @@ script = ExtResource( 13 )
 [node name="Powerups" type="Spatial" parent="."]
 script = ExtResource( 17 )
 
-[node name="GridMap" type="GridMap" parent="."]
+[node name="Map" type="Spatial" parent="."]
+script = ExtResource( 21 )
+
+[node name="GridMap" type="GridMap" parent="Map"]
 mesh_library = ExtResource( 11 )
 cell_size = Vector3( 4, 4, 4 )
 cell_center_y = false
@@ -85,32 +123,32 @@ __meta__ = {
 "_editor_floor_": Vector3( 0, 0, 0 )
 }
 
-[node name="Walls" type="StaticBody" parent="."]
+[node name="Floor" type="StaticBody" parent="Map" groups=["Breakers"]]
 
-[node name="CollisionShape" type="CollisionShape" parent="Walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.27954, 26.3345 )
-shape = SubResource( 15 )
-
-[node name="CollisionShape2" type="CollisionShape" parent="Walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.27954, -24.7766 )
-shape = SubResource( 15 )
-
-[node name="CollisionShape3" type="CollisionShape" parent="Walls"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 36.3449, 7.27954, -0.678744 )
-shape = SubResource( 15 )
-
-[node name="CollisionShape4" type="CollisionShape" parent="Walls"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -36.8129, 7.27954, -0.678744 )
-shape = SubResource( 15 )
-
-[node name="Floor" type="StaticBody" parent="." groups=["Breakers"]]
-
-[node name="CollisionShape" type="CollisionShape" parent="Floor"]
+[node name="CollisionShape" type="CollisionShape" parent="Map/Floor"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.77367, 2.01127 )
 shape = SubResource( 1 )
 
+[node name="Walls" type="StaticBody" parent="Map"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Map/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.27954, 26.3345 )
+shape = SubResource( 15 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="Map/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.27954, -24.7766 )
+shape = SubResource( 15 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="Map/Walls"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 36.3449, 7.27954, -0.678744 )
+shape = SubResource( 15 )
+
+[node name="CollisionShape4" type="CollisionShape" parent="Map/Walls"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -36.8129, 7.27954, -0.678744 )
+shape = SubResource( 15 )
+
 [node name="Player" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.11705, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.79571, 0 )
 collision_layer = 5
 collision_mask = 5
 mode = 2
@@ -148,6 +186,30 @@ player_num = 0
 
 [node name="Powerups" type="Node" parent="Player"]
 script = ExtResource( 12 )
+
+[node name="Icon" type="Sprite" parent="Player/Powerups"]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 18 )
+hframes = 8
+vframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Powerups/Icon"]
+root_node = NodePath("../..")
+anims/IconFade = SubResource( 28 )
+anims/RESET = SubResource( 29 )
+
+[node name="Button" type="Sprite" parent="Player/Powerups/Icon"]
+position = Vector2( 210, 10 )
+texture = ExtResource( 19 )
+hframes = 5
+
+[node name="RayCast" type="RayCast" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
+enabled = true
+cast_to = Vector3( 0, -0.5, 0 )
+
+[node name="Wrapper" type="Node" parent="Player"]
+script = ExtResource( 20 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -0.999844, 0.00567631, 0.0167452, 0.0130175, 0.877224, 0.479904, -0.0119652, 0.480047, -0.877161, -0.082962, 18.6648, -31.175 )

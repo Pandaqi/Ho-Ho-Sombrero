@@ -2,7 +2,7 @@ extends Camera
 
 var cam_offset : Vector3 = Vector3(0,15,7)
 var zoom_factor : float = 1.0
-onready var floor_shape = get_node("../Floor/CollisionShape")
+onready var map = get_node("../Map")
 
 const EDGE_MARGIN : float = 40.0
 
@@ -20,7 +20,7 @@ func change_camera_angle(dt):
 	cam_offset.z = clamp(cam_offset.z, 0.05, 20)
 
 func center_on_map(dt):
-	var shape_offset = Vector3(floor_shape.shape.extents.x, 0, floor_shape.shape.extents.z)
+	var shape_offset = map.get_dimensions()
 	var top_left = floor_shape.transform.origin - shape_offset
 	var bottom_right = floor_shape.transform.origin + shape_offset
 	

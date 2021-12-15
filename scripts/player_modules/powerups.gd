@@ -13,8 +13,22 @@ onready var mover = get_node("../Mover")
 onready var input = get_node("../Input")
 
 onready var powerups = get_node("/root/Main/Powerups")
+onready var GUI = get_node("/root/Main/GUI")
+onready var cam = get_node("/root/Main/Camera")
+
+onready var icon = $Icon
+onready var icon_button = $Icon/Button
+onready var anim_player = $Icon/AnimationPlayer
+
+const ICON_Y_OFFSET : Vector2 = Vector2.DOWN * 25
+
+func _ready():
+	remove_child(icon)
+	GUI.add_child(icon)
+	hide_icon()
 
 func grab(tp : String):
+	hide_icon()
 	remove_module_if_exists()
 	undo_previous_effect()
 	
@@ -80,5 +94,20 @@ func remove_module_if_exists():
 	
 	cur_module.queue_free()
 
+func hide_icon():
+	icon.set_visible(false)
+	anim_player.stop(true)
+
 func show_icon():
 	if not data.has('persistent'): return
+	
+	icon.set_frame(data.frame)
+	icon.set_visible(true)
+	anim_player.play("IconFade")
+	
+	icon_button.set_visible(data.has('button'))
+
+func _physics_process(dt):
+	var real_pos = body.transform.origin
+	var offset = ICON_Y_OFFSET
+	icon.set_position(cam.unproject_position(real_pos) + offset)
