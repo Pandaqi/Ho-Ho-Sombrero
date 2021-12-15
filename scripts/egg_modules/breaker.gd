@@ -29,3 +29,5 @@ func destroy_myself():
 	main_node.add_child(e)
 	powerups.on_egg_broken(body)
 	state.on_egg_broken(body)
+	
+	body.emit_signal("on_death")

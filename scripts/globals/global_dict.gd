@@ -2,7 +2,8 @@ extends Node
 
 var cfg = {
 	"lose_game_by_broken_eggs": false,
-	"level_wrapping": true,
+	"level_wrapping": false,
+	"auto_deliver_eggs": false,
 }
 
 var eggs = {

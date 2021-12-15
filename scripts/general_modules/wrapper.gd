@@ -3,8 +3,15 @@ extends Node
 onready var map = get_node("/root/Main/Map")
 
 func _integrate_forces(state):
-	pass
+	if not GDict.cfg.level_wrapping: return
 	
-	# TO DO: check if we exceed map.get_dimensions()
-	# If so, wrap around to the other side
-	# But only if this is enabled in config
+	var dims = map.get_dimensions()
+	var pos = state.transform.origin
+	
+	if pos.x < -dims.x or pos.x > dims.x:
+		pos.x *= -1
+	
+	if pos.z < -dims.z or pos.z > dims.z:
+		pos.z *= -1
+	
+	state.transform.origin = pos

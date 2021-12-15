@@ -21,8 +21,9 @@ func change_camera_angle(dt):
 
 func center_on_map(dt):
 	var shape_offset = map.get_dimensions()
-	var top_left = floor_shape.transform.origin - shape_offset
-	var bottom_right = floor_shape.transform.origin + shape_offset
+	var shape_pos = map.get_floor_pos()
+	var top_left = shape_pos - shape_offset
+	var bottom_right = shape_pos + shape_offset
 	
 	var avg = (top_left + bottom_right)*0.5
 	var new_pos = avg + cam_offset*zoom_factor

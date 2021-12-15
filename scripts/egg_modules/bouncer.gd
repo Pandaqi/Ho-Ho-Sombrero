@@ -1,7 +1,7 @@
 extends Node
 
 const UP_INFLUENCE : float = 5.0
-const BOUNCE_POWER : float = 5.0
+const BOUNCE_POWER : float = 3.0
 
 var epsilon = 0.1
 var active : bool = true

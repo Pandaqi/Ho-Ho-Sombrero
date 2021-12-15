@@ -13,6 +13,7 @@ var in_game_over : bool = false
 onready var gui = get_node("../GUI")
 onready var game_over = get_node("../GameOver")
 onready var powerups = get_node("../Powerups")
+onready var eggs = get_node("../Eggs")
 
 func activate():
 	gui.update_broken(0, target_broken)
@@ -23,12 +24,14 @@ func activate():
 func on_egg_broken(node):
 	eggs_broken += 1
 	gui.update_broken(eggs_broken, target_broken)
+	eggs.on_egg_broken(node)
 	
 	check_game_over()
 
 func on_egg_delivered(node):
 	eggs_delivered += 1 * powerups.get_point_factor()
 	gui.update_delivered(eggs_delivered, target_delivered)
+	eggs.on_egg_delivered(node)
 	
 	check_game_over()
 

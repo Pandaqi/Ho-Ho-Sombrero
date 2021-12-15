@@ -2,6 +2,7 @@ extends Spatial
 
 onready var state = $State
 onready var eggs = $Eggs
+onready var cannons = $Cannons
 
 func _init():
 	randomize()
@@ -10,4 +11,5 @@ func _init():
 
 func _ready():
 	state.activate()
+	cannons.activate() # NOTE: must come before eggs
 	eggs.activate()

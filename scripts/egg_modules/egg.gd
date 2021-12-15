@@ -6,7 +6,17 @@ onready var visuals = $Visuals
 onready var status = $Status
 onready var wrapper = $Wrapper
 
-const VEL_BOUNDS = { 'min': 0.0, 'max': 25.0 }
+var auto_deliver
+var auto_deliver_module = preload("res://scenes/egg_modules/auto_deliver.tscn")
+
+const VEL_BOUNDS = { 'min': 0.0, 'max': 10.0 }
+
+signal on_death()
+
+func _ready():
+	if GDict.cfg.auto_deliver_eggs:
+		auto_deliver = auto_deliver_module.instance()
+		add_child(auto_deliver)
 
 func _integrate_forces(state):
 	breaker._integrate_forces(state)
@@ -16,7 +26,10 @@ func _integrate_forces(state):
 	cap_velocity(state)
 
 func cap_velocity(state):
-	print(state.linear_velocity.length())
+	var vel = state.linear_velocity
+	var vel_without_y = Vector3(vel.x, 0, vel.z)
+	var magnitude = clamp(vel_without_y.length(), VEL_BOUNDS.min, VEL_BOUNDS.max)
 	
-	var magnitude = clamp(state.linear_velocity.length(), VEL_BOUNDS.min, VEL_BOUNDS.max)
-	state.set_linear_velocity(state.linear_velocity.normalized() * magnitude)
+	var new_vel = vel_without_y.normalized() * magnitude
+	new_vel.y = vel.y
+	state.set_linear_velocity(new_vel)
