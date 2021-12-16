@@ -15,18 +15,12 @@ func _integrate_forces(state):
 		var obj = state.get_contact_collider_object(i)
 		var normal = state.get_contact_local_normal(i)
 		if obj.is_in_group("NormalBouncer"): continue
-		
-		print("OLD")
-		print(normal)
-		
+
 		if normal.y < 0: normal.y += 1.0
 		normal.y *= UP_INFLUENCE
 		
 		normal = normal.normalized()
-		
-		print("NEW")
-		print(normal)
-		
+
 		var final_bounce_power = BOUNCE_POWER
 		if obj.is_in_group("Players"):
 			final_bounce_power *= obj.powerups.get_final_bounce_factor()

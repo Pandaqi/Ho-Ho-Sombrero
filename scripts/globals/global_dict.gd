@@ -8,7 +8,7 @@ var cfg = {
 
 var eggs = {
 	"regular": { "frame": 0 },
-	"??": { "frame": 1 },
+	"earthquake": { "frame": 1, "persistent": true }, # slanted sombrero
 	"jump": { "frame": 2, "button": true, "module": true, "persistent": true },
 	"dash": { "frame": 3, "button": true, "module": true, "persistent": true },
 	"attract": { "frame": 4, "button": true, "module": true, "persistent": true },
@@ -22,5 +22,7 @@ var eggs = {
 	"global_gravity_plus": { "frame": 12 },
 	"global_gravity_min": { "frame": 13 },
 	"global_egg_faster": { "frame": 14 },
-	"global_egg_slower": { "frame": 15 }
+	"global_egg_slower": { "frame": 15 },
+	"frisbee": { "frame": 16, "button": true, "persistent": true },
+	"racket": { "frame": 17, "persistent": true }
 }

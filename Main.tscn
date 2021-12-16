@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://scripts/player_modules/input.gd" type="Script" id=1]
 [ext_resource path="res://scripts/player_modules/mover.gd" type="Script" id=2]
@@ -23,6 +23,9 @@
 [ext_resource path="res://scripts/map.gd" type="Script" id=21]
 [ext_resource path="res://assets/textures/sombreros.png" type="Texture" id=22]
 [ext_resource path="res://scripts/cannons.gd" type="Script" id=23]
+[ext_resource path="res://scripts/sombrero_modules/sombrero.gd" type="Script" id=24]
+[ext_resource path="res://scripts/sombrero_modules/joints.gd" type="Script" id=25]
+[ext_resource path="res://scripts/sombrero_modules/frisbee.gd" type="Script" id=26]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 27.8667, 1, 17.7775 )
@@ -260,10 +263,10 @@ material/0 = null
 wait_time = 5.0
 one_shot = true
 
-[node name="Spatial" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.70395, 1.66625, 0 )
+[node name="PlayerContainer" type="Spatial" parent="."]
 
-[node name="Player" type="RigidBody" parent="Spatial"]
+[node name="Player" type="RigidBody" parent="PlayerContainer"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.46229, 1.29153, 0 )
 collision_layer = 5
 collision_mask = 5
 physics_material_override = SubResource( 6 )
@@ -273,119 +276,115 @@ axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource( 4 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Spatial/Player"]
+[node name="CollisionShape" type="CollisionShape" parent="PlayerContainer/Player"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 23 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Spatial/Player"]
+[node name="MeshInstance" type="MeshInstance" parent="PlayerContainer/Player"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 material_override = SubResource( 24 )
 mesh = SubResource( 25 )
 material/0 = null
 
-[node name="Mover" type="Node" parent="Spatial/Player"]
+[node name="Mover" type="Node" parent="PlayerContainer/Player"]
 script = ExtResource( 2 )
 
-[node name="Input" type="Node" parent="Spatial/Player"]
+[node name="Input" type="Node" parent="PlayerContainer/Player"]
 script = ExtResource( 1 )
 player_num = 0
 
-[node name="Powerups" type="Spatial" parent="Spatial/Player"]
+[node name="Powerups" type="Spatial" parent="PlayerContainer/Player"]
 script = ExtResource( 12 )
 
-[node name="Icon" type="Sprite" parent="Spatial/Player/Powerups"]
+[node name="Icon" type="Sprite" parent="PlayerContainer/Player/Powerups"]
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 18 )
 hframes = 8
 vframes = 8
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Spatial/Player/Powerups/Icon"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerContainer/Player/Powerups/Icon"]
 root_node = NodePath("../..")
 anims/IconFade = SubResource( 28 )
 anims/RESET = SubResource( 29 )
 
-[node name="Button" type="Sprite" parent="Spatial/Player/Powerups/Icon"]
+[node name="Button" type="Sprite" parent="PlayerContainer/Player/Powerups/Icon"]
 position = Vector2( 210, 10 )
 texture = ExtResource( 19 )
 hframes = 5
 
-[node name="RayCast" type="RayCast" parent="Spatial/Player"]
+[node name="RayCast" type="RayCast" parent="PlayerContainer/Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.05, 0 )
 enabled = true
 cast_to = Vector3( 0, -0.4, 0 )
 
-[node name="Wrapper" parent="Spatial/Player" instance=ExtResource( 20 )]
+[node name="Wrapper" parent="PlayerContainer/Player" instance=ExtResource( 20 )]
 
-[node name="Sombrero" type="RigidBody" parent="Spatial"]
+[node name="Sombrero" type="RigidBody" parent="PlayerContainer"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.437041, 0 )
 collision_layer = 2
 collision_mask = 2
 mass = 0.01
 gravity_scale = 0.0
+script = ExtResource( 24 )
 
-[node name="Cylinder" type="MeshInstance" parent="Spatial/Sombrero"]
+[node name="Joints" type="Node" parent="PlayerContainer/Sombrero"]
+script = ExtResource( 25 )
+
+[node name="Frisbee" type="Node" parent="PlayerContainer/Sombrero"]
+script = ExtResource( 26 )
+
+[node name="Cylinder" type="MeshInstance" parent="PlayerContainer/Sombrero"]
 mesh = SubResource( 30 )
 skeleton = NodePath("")
 material/0 = null
 
-[node name="CollisionShape16" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape16" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 34 )
 
-[node name="CollisionShape15" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape15" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 35 )
 
-[node name="CollisionShape14" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape14" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 36 )
 
-[node name="CollisionShape13" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape13" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 37 )
 
-[node name="CollisionShape12" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape12" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 38 )
 
-[node name="CollisionShape11" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape11" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 39 )
 
-[node name="CollisionShape10" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape10" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 40 )
 
-[node name="CollisionShape9" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape9" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 41 )
 
-[node name="CollisionShape8" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape8" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 42 )
 
-[node name="CollisionShape7" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape7" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 43 )
 
-[node name="CollisionShape6" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape6" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 44 )
 
-[node name="CollisionShape5" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape5" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 45 )
 
-[node name="CollisionShape4" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape4" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 46 )
 
-[node name="CollisionShape3" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape3" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 47 )
 
-[node name="CollisionShape2" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape2" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 48 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Spatial/Sombrero"]
+[node name="CollisionShape" type="CollisionShape" parent="PlayerContainer/Sombrero"]
 shape = SubResource( 49 )
-
-[node name="PinJoint" type="Generic6DOFJoint" parent="Spatial"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.456748, 0 )
-nodes/node_a = NodePath("../Player")
-nodes/node_b = NodePath("../Sombrero")
-angular_limit_x/upper_angle = 4.0
-angular_limit_x/lower_angle = -4.0
-angular_limit_y/upper_angle = 4.0
-angular_limit_y/lower_angle = -4.0
-angular_limit_z/upper_angle = 4.0
-angular_limit_z/lower_angle = -4.0
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -0.999844, 0.00567631, 0.0167452, 0.0130175, 0.877224, 0.479904, -0.0119652, 0.480047, -0.877161, -0.082962, 18.6648, -31.175 )
@@ -457,6 +456,6 @@ text = "00:00"
 
 [connection signal="timeout" from="Eggs/Timer" to="Eggs" method="_on_Timer_timeout"]
 [connection signal="timeout" from="Map/EggCannon/Timer" to="Map/EggCannon" method="_on_Timer_timeout"]
-[connection signal="button_press" from="Spatial/Player/Input" to="Spatial/Player/Mover" method="_on_Input_button_press"]
-[connection signal="button_release" from="Spatial/Player/Input" to="Spatial/Player/Mover" method="_on_Input_button_release"]
-[connection signal="move_vec" from="Spatial/Player/Input" to="Spatial/Player/Mover" method="_on_Input_move_vec"]
+[connection signal="button_press" from="PlayerContainer/Player/Input" to="PlayerContainer/Player/Mover" method="_on_Input_button_press"]
+[connection signal="button_release" from="PlayerContainer/Player/Input" to="PlayerContainer/Player/Mover" method="_on_Input_button_release"]
+[connection signal="move_vec" from="PlayerContainer/Player/Input" to="PlayerContainer/Player/Mover" method="_on_Input_move_vec"]

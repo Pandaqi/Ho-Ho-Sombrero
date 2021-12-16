@@ -1,0 +1,10 @@
+[gd_scene format=2]
+
+[node name="PinJoint" type="Generic6DOFJoint"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.456748, 0 )
+angular_limit_x/upper_angle = 4.0
+angular_limit_x/lower_angle = -4.0
+angular_limit_y/upper_angle = 4.0
+angular_limit_y/lower_angle = -4.0
+angular_limit_z/upper_angle = 4.0
+angular_limit_z/lower_angle = -4.0
