@@ -12,11 +12,15 @@ onready var cannons = get_node("../Cannons")
 
 onready var timer : Timer = $Timer
 
+var arena_data
+
 func activate():
 	NUM_EGG_BOUNDS = { 
 		'min': max(GInput.get_player_count()-1, 1),
 		'max': GInput.get_player_count()+1
 	}
+	
+	arena_data = GDict.arenas[G.get_current_arena()]
 	determine_available_types()
 	
 	check_new_eggs()
@@ -25,6 +29,9 @@ func activate():
 
 func determine_available_types():
 	var all_types = GDict.eggs.keys()
+	if arena_data.has('eggs_allowed'):
+		all_types = arena_data.eggs_allowed + []
+	
 	all_types.shuffle()
 	
 	var num_types = floor(rand_range(NUM_TYPES_BOUNDS.min, NUM_TYPES_BOUNDS.max))

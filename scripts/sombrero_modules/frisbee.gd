@@ -23,6 +23,7 @@ func deactivate():
 
 func _on_Input_button_release():
 	if not active: return
+	if phase != "idle": return
 	enter_throw_phase()
 	
 func enter_throw_phase():
@@ -35,12 +36,17 @@ func enter_return_phase():
 
 func finish_return_phase():
 	phase = "idle"
+	
+	body.set_linear_velocity(Vector3.ZERO)
+	body.set_angular_velocity(Vector3.ZERO)
+	
 	body.joints.plan_joint("regular")
 
 func _physics_process(dt):
 	if not active: return
 	if phase == "idle": 
 		body.set_linear_velocity(Vector3.ZERO)
+		body.set_angular_velocity(Vector3.ZERO)
 		return
 	
 	body.set_angular_velocity(Vector3.UP * SPIN_SPEED)

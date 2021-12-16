@@ -14,6 +14,9 @@ onready var body = get_parent()
 var pin_joint = preload("res://scenes/sombrero_modules/pin_joint.tscn")
 var slanted_pin_joint = preload("res://scenes/sombrero_modules/slanted_pin_joint.tscn")
 
+# USEFUL URL (about joints and PhysicsServer)
+# https://godotengine.org/qa/109572/how-to-keep-a-rigid-body-still-while-attaching-a-joint
+
 func _input(ev):
 	if ev.is_action_released("restart"):
 		var key = "regular"
@@ -77,7 +80,7 @@ func create_regular_joint(state):
 	var player_pos = p.transform.origin
 	
 	state.transform.origin = player_pos + DEF_SOMBRERO_POS
-	state.transform.basis = Basis(Vector3.RIGHT, Vector3.UP, Vector3.FORWARD)
+	state.transform.basis = p.transform.basis
 
 	settling_joint = true
 
@@ -127,7 +130,7 @@ func create_racket_joint(state):
 	var offset = 5.0
 	
 	state.transform.origin = player_pos + 0.5*DEF_SOMBRERO_POS + offset*forward_pos
-	state.transform.basis = Basis(Vector3.RIGHT, Vector3.UP, Vector3.FORWARD)
+	state.transform.basis = p.transform.basis
 	
 	settling_joint = true
 	

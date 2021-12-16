@@ -5,6 +5,7 @@ onready var powerups = $Powerups
 onready var rc = $RayCast
 onready var wrapper = $Wrapper
 onready var input = $Input
+onready var status = $Status
 onready var sombrero = get_node("../Sombrero")
 
 func _integrate_forces(state):

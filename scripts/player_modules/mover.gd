@@ -32,13 +32,10 @@ func _integrate_forces(state):
 		# (rot_dir will be 0, same as when parallel)
 		if cur_vec_2d.dot(input_vec) <= (-0.99):
 			rot_dir = 1
-		
-		print(rot_dir)
-		
+
 		var rotate_speed = 70 * sqrt(angle)
 		state.set_angular_velocity(-Vector3.UP*rotate_speed*rot_dir)
-		print(state.angular_velocity)
-		
+
 #		var a = Quat(state.transform.basis)
 #		var target_pos = state.transform.origin + vec_3d
 #		var new_transform = state.transform.looking_at(target_pos, Vector3.UP)

@@ -8,6 +8,7 @@ var egg_speed_modifier : float = 1.0
 var powerup_scene = preload("res://scenes/single_powerup.tscn")
 
 func on_egg_broken(entity):
+	if not GDict.cfg.broken_eggs_spawn_powerups: return
 	spawn_powerup(entity.transform.origin, entity.visuals.type)
 
 func spawn_powerup(pos : Vector3, type : String):

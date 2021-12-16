@@ -1,9 +1,31 @@
 extends Node
 
-var cfg = {
+var base_cfg = {
 	"lose_game_by_broken_eggs": false,
 	"level_wrapping": false,
 	"auto_deliver_eggs": false,
+	"broken_eggs_spawn_powerups": true,
+}
+
+var cfg = {
+	
+}
+
+var arenas = {
+	"menu": {
+		
+	},
+	
+	"training": {
+		"tutorial": ["solo_mode"],
+		"auto_deliver_eggs": true,
+		"broken_eggs_spawn_powerups": false,
+		"eggs_allowed": ["regular"]
+	},
+	
+	"forest": {
+		"eggs_allowed": ["regular", "jump", "dash", "move_faster", "move_slower"]
+	}
 }
 
 var eggs = {
@@ -26,3 +48,10 @@ var eggs = {
 	"frisbee": { "frame": 16, "button": true, "persistent": true },
 	"racket": { "frame": 17, "persistent": true }
 }
+
+func create_temporary_config_for_arena(arena : String):
+	var data = arenas[arena]
+	for key in base_cfg:
+		var val = base_cfg[key]
+		if data.has('key'): val = data[key]
+		cfg[key] = val

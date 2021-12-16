@@ -6,9 +6,6 @@ func activate():
 	cannons = get_tree().get_nodes_in_group("EggCannons")
 
 func create_new_egg(options):
-	# DEBUGGING
-	options = ['frisbee']
-	
 	var type = options[randi() % options.size()]
 	
 	var rand_cannon = null

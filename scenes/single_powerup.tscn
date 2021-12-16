@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/ui/eggs.png" type="Texture" id=1]
 [ext_resource path="res://scripts/single_powerup.gd" type="Script" id=2]
@@ -19,6 +19,47 @@ surfaces/0 = {
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 87
+}
+
+[sub_resource type="Animation" id=31]
+resource_name = "PowerupDisappear"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Powerup:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 2, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Powerup:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "on_death"
+} ]
 }
 
 [sub_resource type="Animation" id=28]
@@ -75,6 +116,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Powerup:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ) ]
+}
 
 [node name="Powerup" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.36212, 0 )
@@ -111,7 +164,12 @@ material/0 = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "PowerupWobble"
+anims/PowerupDisappear = SubResource( 31 )
 anims/PowerupWobble = SubResource( 28 )
 anims/RESET = SubResource( 29 )
 
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="Powerup/Area" to="." method="_on_Area_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

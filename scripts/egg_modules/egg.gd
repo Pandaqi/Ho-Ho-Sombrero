@@ -5,6 +5,7 @@ onready var breaker = $Breaker
 onready var visuals = $Visuals
 onready var status = $Status
 onready var wrapper = $Wrapper
+onready var offscreen = $Offscreen
 
 var auto_deliver
 var auto_deliver_module = preload("res://scenes/egg_modules/auto_deliver.tscn")

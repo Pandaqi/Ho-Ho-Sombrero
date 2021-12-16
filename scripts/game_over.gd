@@ -10,7 +10,7 @@ func hide():
 	control.set_visible(false)
 
 func show(time):
-	control.set_visible(false)
+	control.set_visible(true)
 	time_label.set_text(format_time(time))
 
 func format_time(time : float):
