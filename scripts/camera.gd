@@ -37,6 +37,8 @@ func center_on_map(dt):
 	var bottom_right_2d = unproject_position(bottom_right)
 	var vp = get_viewport().size
 	
+	zoom_factor -= 0.5*dt
+	
 	if top_left_2d.x < EDGE_MARGIN or top_left_2d.y < EDGE_MARGIN:
 		zoom_factor += dt
 	

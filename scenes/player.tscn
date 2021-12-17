@@ -123,7 +123,7 @@ points = PoolVector3Array( 0.235484, 1.2031, 0.785413, -0.356277, 0.775434, -0.9
 
 [node name="PlayerContainer" type="Spatial"]
 
-[node name="Player" type="RigidBody" parent="."]
+[node name="Player" type="RigidBody" parent="." groups=["Players"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.46229, 1.29153, 0 )
 collision_layer = 5
 collision_mask = 5
@@ -152,7 +152,6 @@ script = ExtResource( 3 )
 
 [node name="Input" type="Node" parent="Player"]
 script = ExtResource( 2 )
-player_num = 0
 
 [node name="Powerups" type="Spatial" parent="Player"]
 script = ExtResource( 6 )

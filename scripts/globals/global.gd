@@ -4,7 +4,7 @@ var scenes = {
 	'game': preload("res://Main.tscn")
 }
 
-var mode : String = "game"
+var mode : String = "menu"
 var arena : String = "forest"
 
 func get_current_arena():

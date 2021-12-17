@@ -4,17 +4,19 @@ onready var state = $State
 onready var eggs = $Eggs
 onready var cannons = $Cannons
 onready var players = $Players
+onready var solo_mode = $SoloMode
 
 var map
 var arenas = {
 	'menu': preload("res://scenes/arenas/menu.tscn"),
-	'training': preload("res://scenes/arenas/menu.tscn"), # TO DO: actual scene
+	'training': preload("res://scenes/arenas/training.tscn"),
 	'forest': preload("res://scenes/arenas/menu.tscn"), # TO DO: actual scene
 }
 
 func _init():
 	randomize()
-	if GInput.get_player_count() <= 0:
+	
+	if G.in_game() and GInput.get_player_count() <= 0:
 		GInput.create_debugging_players()
 	
 	load_arena()
@@ -31,6 +33,8 @@ func _ready():
 		cannons.activate() # NOTE: must come before eggs
 		eggs.activate()
 		players.activate()
+	
+	solo_mode.activate()
 
 func load_arena():
 	var type = G.get_current_arena()
@@ -40,3 +44,6 @@ func load_arena():
 	map = arenas[type].instance()
 	map.name = "Map"
 	add_child(map)
+
+func on_player_logged_in():
+	pass

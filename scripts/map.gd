@@ -1,6 +1,6 @@
 extends Spatial
 
-onready var floor_shape = $Floor/CollisionShape
+onready var outline = $Outline
 
 var starting_positions = []
 const START_POS_OFFSET : Vector3 = Vector3.UP*2
@@ -13,7 +13,7 @@ func get_start_pos(num : int):
 	return starting_positions[num]
 
 func get_dimensions():
-	return Vector3(floor_shape.shape.extents.x, 0, floor_shape.shape.extents.z)
+	return outline.get_dimensions()
 
 func get_floor_pos():
-	return floor_shape.transform.origin
+	return outline.transform.origin # TO DO: correct? useful? dunno

@@ -5,6 +5,7 @@ var base_cfg = {
 	"level_wrapping": false,
 	"auto_deliver_eggs": false,
 	"broken_eggs_spawn_powerups": true,
+	"solo_mode_two_sombreros": true,
 }
 
 var cfg = {
@@ -53,5 +54,7 @@ func create_temporary_config_for_arena(arena : String):
 	var data = arenas[arena]
 	for key in base_cfg:
 		var val = base_cfg[key]
-		if data.has('key'): val = data[key]
+		if data.has(key): val = data[key]
 		cfg[key] = val
+	
+	print(cfg)

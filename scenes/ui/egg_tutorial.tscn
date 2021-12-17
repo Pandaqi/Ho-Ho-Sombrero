@@ -1,12 +1,18 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/tutorial_spritesheet.png" type="Texture" id=1]
+[ext_resource path="res://assets/ui/egg_tutorial_bg.png" type="Texture" id=2]
 
 [node name="EggTutorial" type="Node2D"]
 scale = Vector2( 0.25, 0.25 )
 
+[node name="BG" type="Sprite" parent="."]
+position = Vector2( -256, -128 )
+texture = ExtResource( 2 )
+
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -257, -127 )
+scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 1 )
 hframes = 8
 vframes = 8

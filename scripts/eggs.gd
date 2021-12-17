@@ -2,7 +2,7 @@ extends Node
 
 var NUM_EGG_BOUNDS
 
-const EGG_CHECK_INTERVAL : float = 10.0
+const EGG_CHECK_INTERVAL : float = 5.0
 const NUM_TYPES_BOUNDS = { 'min': 2, 'max': 6 }
 var available_types : Array = []
 var active_eggs : Array = []
@@ -15,9 +15,10 @@ onready var timer : Timer = $Timer
 var arena_data
 
 func activate():
+	var num_players = GInput.get_player_count()
 	NUM_EGG_BOUNDS = { 
-		'min': max(GInput.get_player_count()-1, 1),
-		'max': GInput.get_player_count()+1
+		'min': max(num_players-1, 1),
+		'max': num_players+1
 	}
 	
 	arena_data = GDict.arenas[G.get_current_arena()]
@@ -52,9 +53,13 @@ func check_new_eggs(only_essential = true):
 	if active_eggs.size() >= NUM_EGG_BOUNDS.max: return
 	
 	if not only_essential:
-		var rand_max = NUM_EGG_BOUNDS.min + randi() % (NUM_EGG_BOUNDS.max - NUM_EGG_BOUNDS.min)
+		var rand_max = NUM_EGG_BOUNDS.min + randi() % (NUM_EGG_BOUNDS.max + 1 - NUM_EGG_BOUNDS.min)
+		
+		print("RAND EGG MAX")
+		print(rand_max)
+		
 		if active_eggs.size() >= rand_max: return
-	
+
 	cannons.create_new_egg(available_types)
 
 func on_egg_created(node):

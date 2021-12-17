@@ -28,3 +28,4 @@ func _on_Timer_timeout():
 
 func on_death():
 	progress.queue_free()
+	self.queue_free()

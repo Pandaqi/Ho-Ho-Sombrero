@@ -1,9 +1,10 @@
 extends CanvasLayer
 
-onready var delivered_label = $Delivered
-onready var broken_label = $Broken
+onready var delivered_label = $Counters/Delivered
+onready var broken_label = $Counters/Broken
 
 const TUT_HEIGHT : float = 256*0.25
+const TUT_MARGIN : float = 7.0
 
 onready var egg_tutorials = $EggTutorials
 var egg_tutorial = preload("res://scenes/ui/egg_tutorial.tscn")
@@ -29,7 +30,7 @@ func display_egg_tutorials(list):
 		
 		var t = egg_tutorial.instance()
 		t.get_node("Sprite").set_frame(frame)
-		t.set_position(Vector2.UP*TUT_HEIGHT*counter)
+		t.set_position(Vector2.UP*TUT_HEIGHT*counter - Vector2.ONE*TUT_MARGIN)
 		egg_tutorials.add_child(t)
 		
 		counter += 1

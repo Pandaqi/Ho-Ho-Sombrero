@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/textures/map_outline.png" type="Texture" id=1]
+[ext_resource path="res://scripts/map_outline.gd" type="Script" id=2]
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="PlaneMesh" id=1]
+material = SubResource( 2 )
+size = Vector2( 80, 48 )
+subdivide_width = 50
+subdivide_depth = 50
+
+[node name="Outline" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+skeleton = NodePath("../..")
+material/0 = null
