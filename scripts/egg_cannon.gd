@@ -7,8 +7,8 @@ onready var powerups = get_node("/root/Main/Powerups")
 
 onready var timer = $Timer
 
-const SHOOT_FORCE : float = 20.0
-const FORCE_BOUNDS : Dictionary = { 'min': 9.0, 'max': 30.0 }
+const SHOOT_FORCE : float = 40.0
+const FORCE_BOUNDS : Dictionary = { 'min': 22.0, 'max': 60.0 }
 
 const DELAY_PLANNED_SHOT = { 'min': 1.5, 'max': 4.0 }
 
@@ -16,12 +16,12 @@ export var fixed_type : String = "regular"
 export var planned_type : String = ""
 
 # all in RADIANS
-const ROTATE_SPEED : float = 0.5
+const ROTATE_SPEED : float = 0.25
 export var barrel_starting_rotation : float = 0.0
 export var barrel_rotation_bounds : float = 0.0
 var barrel_rotate_dir : float = 0.0
 
-const SWIVEL_SPEED : float = 0.5
+const SWIVEL_SPEED : float = 0.25
 var swivel_starting_rotation : float = 0.0
 export var swivel_bounds : float = 0.0
 var swivel_dir : float = 0.0

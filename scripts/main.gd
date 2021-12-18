@@ -10,7 +10,7 @@ var map
 var arenas = {
 	'menu': preload("res://scenes/arenas/menu.tscn"),
 	'training': preload("res://scenes/arenas/training.tscn"),
-	'forest': preload("res://scenes/arenas/menu.tscn"), # TO DO: actual scene
+	'forest': preload("res://scenes/arenas/forest.tscn"),
 }
 
 func _init():

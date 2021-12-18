@@ -18,9 +18,6 @@ func activate():
 	if not GDict.cfg.solo_mode_two_sombreros: 
 		self_destruct()
 		return
-	if G.get_current_arena() != "training":
-		self_destruct()
-		return
 	
 	player_bodies = get_tree().get_nodes_in_group("Players")
 	initialize_solo_mode()
@@ -30,15 +27,23 @@ func self_destruct():
 
 func initialize_solo_mode():
 	players.place_player(1, true)
-	show_tutorial()
+	
+	if G.get_current_arena() == "training": 
+		show_tutorial()
+	else:
+		hide_tutorial()
 
 func show_tutorial():
+	get_tree().paused = true
+	
 	tutorial_active = true
 	tutorial_container.set_visible(true)
 
 func hide_tutorial():
 	tutorial_active = false
 	tutorial_container.set_visible(false)
+	
+	get_tree().paused = false
 
 func _input(ev):
 	if not input_enabled: return

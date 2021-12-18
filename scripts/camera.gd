@@ -4,8 +4,19 @@ var cam_offset : Vector3 = Vector3(0,15,7)
 var zoom_factor : float = 1.0
 onready var map = get_node("../Map")
 
-const EDGE_MARGIN : float = 40.0
+const ZOOM_SPEED : float = 3.0
+
+# Values ar given based on the "base_vp" => they are rescaled if necessary for (wildly) different viewports
+const EDGE_MARGIN : float = 100.0
+const INNER_EDGE_MARGIN : float = EDGE_MARGIN + 35.0
 const OFFSCREEN_MARGIN : float = 10.0
+
+var base_vp = Vector2(1920, 1080)
+
+var top_left_2d
+var bottom_right_2d
+var vp
+var vp_compensate
 
 func _physics_process(dt):
 	center_on_map(dt)
@@ -33,17 +44,23 @@ func center_on_map(dt):
 	
 	look_at(avg, Vector3.UP)
 	
-	var top_left_2d = unproject_position(top_left)
-	var bottom_right_2d = unproject_position(bottom_right)
-	var vp = get_viewport().size
+	top_left_2d = unproject_position(top_left)
+	bottom_right_2d = unproject_position(bottom_right)
+	vp = get_viewport().size
+	vp_compensate = max((vp/base_vp).x, (vp/base_vp).y)
+
+	if inside_margin(EDGE_MARGIN * vp_compensate):
+		zoom_factor += dt*ZOOM_SPEED
+	elif not inside_margin(INNER_EDGE_MARGIN * vp_compensate):
+		zoom_factor -= dt*ZOOM_SPEED
+
+func inside_margin(m : float) -> bool:
+	if top_left_2d.x < m or top_left_2d.y < m:
+		return true
 	
-	zoom_factor -= 0.5*dt
-	
-	if top_left_2d.x < EDGE_MARGIN or top_left_2d.y < EDGE_MARGIN:
-		zoom_factor += dt
-	
-	if bottom_right_2d.x > (vp.x - EDGE_MARGIN) or bottom_right_2d.y > (vp.y - EDGE_MARGIN):
-		zoom_factor += dt
+	if bottom_right_2d.x > (vp.x - m) or bottom_right_2d.y > (vp.y - m):
+		return true
+	return false
 
 func is_offscreen(pos : Vector3):
 	var pos_2d = unproject_position(pos)

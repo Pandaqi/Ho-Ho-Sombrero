@@ -1,6 +1,6 @@
 extends Node
 
-const JUMP_FORCE : float = 20.0
+const JUMP_FORCE : float = 40.0
 
 var body
 

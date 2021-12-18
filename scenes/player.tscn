@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://scenes/general_modules/wrapper.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/player_modules/input.gd" type="Script" id=2]
@@ -28,26 +28,38 @@ mid_height = 0.35
 radial_segments = 16
 rings = 3
 
-[sub_resource type="Animation" id=28]
-resource_name = "IconFade"
-loop = true
+[sub_resource type="Animation" id=50]
+resource_name = "ButtonHighlight"
+length = 1.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("Icon:self_modulate")
+tracks/0/path = NodePath("IconButton:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.294118 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.911373 ), Color( 1, 1, 1, 0.556863 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("IconButton:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.2 ), Vector2( 0.25, 0.25 ), Vector2( 0.2, 0.2 ) ]
 }
 
-[sub_resource type="Animation" id=29]
+[sub_resource type="Animation" id=51]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Icon:modulate")
+tracks/0/path = NodePath("IconButton:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -57,6 +69,121 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("IconButton:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.2 ) ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "IconFade"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icons/Sprite3D:opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.66 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Icons/Sprite3D2:opacity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.66 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Icons/Sprite3D3:opacity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.66 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Icons/Sprite3D4:opacity")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.66 ]
+}
+
+[sub_resource type="Animation" id=29]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icons/Sprite3D:opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Icons/Sprite3D2:opacity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Icons/Sprite3D3:opacity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Icons/Sprite3D4:opacity")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
 }
 
 [sub_resource type="ArrayMesh" id=30]
@@ -128,7 +255,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.46229, 1.29153, 0 )
 collision_layer = 5
 collision_mask = 5
 physics_material_override = SubResource( 6 )
-gravity_scale = 5.0
+gravity_scale = 7.0
 can_sleep = false
 axis_lock_angular_x = true
 axis_lock_angular_z = true
@@ -156,21 +283,47 @@ script = ExtResource( 2 )
 [node name="Powerups" type="Spatial" parent="Player"]
 script = ExtResource( 6 )
 
-[node name="Icon" type="Sprite" parent="Player/Powerups"]
+[node name="IconButton" type="Sprite" parent="Player/Powerups"]
+position = Vector2( 0, 2 )
 scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 8 )
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Powerups/IconButton"]
+root_node = NodePath("../..")
+anims/ButtonHighlight = SubResource( 50 )
+anims/RESET = SubResource( 51 )
+
+[node name="Icons" type="Spatial" parent="Player/Powerups"]
+
+[node name="Sprite3D" type="Sprite3D" parent="Player/Powerups/Icons"]
+transform = Transform( -1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, -0.75, 6 )
 texture = ExtResource( 7 )
 hframes = 8
 vframes = 8
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Powerups/Icon"]
+[node name="Sprite3D2" type="Sprite3D" parent="Player/Powerups/Icons"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.75, -6 )
+texture = ExtResource( 7 )
+hframes = 8
+vframes = 8
+
+[node name="Sprite3D3" type="Sprite3D" parent="Player/Powerups/Icons"]
+transform = Transform( 1.31134e-07, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, 1.31134e-07, -5.73206e-15, 6, -0.75, 0 )
+texture = ExtResource( 7 )
+hframes = 8
+vframes = 8
+
+[node name="Sprite3D4" type="Sprite3D" parent="Player/Powerups/Icons"]
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, -6, -0.75, 0 )
+texture = ExtResource( 7 )
+hframes = 8
+vframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Powerups/Icons"]
 root_node = NodePath("../..")
 anims/IconFade = SubResource( 28 )
 anims/RESET = SubResource( 29 )
-
-[node name="Button" type="Sprite" parent="Player/Powerups/Icon"]
-position = Vector2( 210, 10 )
-texture = ExtResource( 8 )
-hframes = 5
 
 [node name="RayCast" type="RayCast" parent="Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.05, 0 )

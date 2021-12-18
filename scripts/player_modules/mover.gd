@@ -13,6 +13,7 @@ var fps_dt = (1.0/60.0)
 
 var extra_speed : float = 0.0
 var extra_force : Vector3 = Vector3.ZERO
+var last_known_input : Vector2
 
 func _on_Input_move_vec(vec, dt):
 	input_vec = vec
@@ -47,12 +48,15 @@ func _integrate_forces(state):
 	var wanted_vel = -state.transform.basis.z*fps_dt*get_final_speed()
 	wanted_vel = cur_vel.linear_interpolate(wanted_vel, 1.0 - slip_factor)
 	
-	if input_vec.length() <= 0.03 and slip_factor <= 0.03: 
-		wanted_vel = Vector3.ZERO
+	if input_vec.length() <= 0.03 and slip_factor <= 0.03:
+		if extra_speed < 0.03: 
+			wanted_vel = Vector3.ZERO
 		state.set_angular_velocity(Vector3.ZERO)
 	
 	wanted_vel = Vector3(wanted_vel.x, cur_vel.y, wanted_vel.z)
 	state.set_linear_velocity(wanted_vel)
+	
+	if input_vec.length() >= 0.03: last_known_input = input_vec
 
 func get_final_speed():
 	return clamp(MOVE_SPEED*speed_modifier, SPEED_BOUNDS.min, SPEED_BOUNDS.max) + extra_speed

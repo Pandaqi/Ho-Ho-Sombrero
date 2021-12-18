@@ -27,23 +27,23 @@ data = {
 [node name="Walls" type="StaticBody" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="Walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.27954, 28.8708 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.511, 28.8708 )
 shape = SubResource( 15 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="Walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.27954, -28.8867 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.511, -28.8867 )
 shape = SubResource( 15 )
 
 [node name="CollisionShape3" type="CollisionShape" parent="Walls"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 44.731, 7.27954, -0.678744 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 44.731, 19.511, -0.678744 )
 shape = SubResource( 15 )
 
 [node name="CollisionShape4" type="CollisionShape" parent="Walls"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -44.7944, 7.27954, -0.678744 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -44.7944, 19.511, -0.678744 )
 shape = SubResource( 15 )
 
 [node name="Ceiling" type="CollisionShape" parent="Walls"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 30, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 40, 0 )
 shape = SubResource( 15 )
 
 [node name="StartingPositions" type="Spatial" parent="."]
@@ -64,6 +64,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2634, 0, 14.1969 )
 
 [node name="EggCannon" parent="." instance=ExtResource( 1 )]
 transform = Transform( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 35.598, 4.22507, -19.3881 )
+barrel_starting_rotation = 0.785
+barrel_rotation_bounds = 0.314
+swivel_bounds = 0.785
+
+[node name="EggCannon2" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -37.402, 4.22507, -19.3881 )
 barrel_starting_rotation = 0.785
 barrel_rotation_bounds = 0.314
 swivel_bounds = 0.785

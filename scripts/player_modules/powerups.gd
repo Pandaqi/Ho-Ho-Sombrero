@@ -16,17 +16,18 @@ onready var powerups = get_node("/root/Main/Powerups")
 onready var GUI = get_node("/root/Main/GUI")
 onready var cam = get_node("/root/Main/Camera")
 
-onready var icon = $Icon
-onready var icon_button = $Icon/Button
-onready var anim_player = $Icon/AnimationPlayer
+onready var icon_button = $IconButton
+onready var button_anim_player = $IconButton/AnimationPlayer
+onready var icons = $Icons
+onready var anim_player = $Icons/AnimationPlayer
 
 onready var sombrero = get_node("../../Sombrero")
 
-const ICON_Y_OFFSET : Vector2 = Vector2.DOWN * 25
+const ICON_Y_OFFSET : Vector2 = Vector2.UP * 50
 
 func _ready():
-	remove_child(icon)
-	GUI.add_child(icon)
+	remove_child(icon_button)
+	GUI.add_child(icon_button)
 	hide_icon()
 
 func grab(tp : String):
@@ -110,19 +111,25 @@ func remove_module_if_exists():
 	cur_module = null
 
 func hide_icon():
-	icon.set_visible(false)
+	icons.set_visible(false)
+	icon_button.set_visible(false)
 	anim_player.stop(true)
 
 func show_icon():
 	if not data.has('persistent'): return
 	
-	icon.set_frame(data.frame)
-	icon.set_visible(true)
+	for child in icons.get_children():
+		if not (child is Sprite3D): continue
+		child.set_frame(data.frame)
+
+	icons.set_visible(true)
 	anim_player.play("IconFade")
 	
 	icon_button.set_visible(data.has('button'))
+	if icon_button.is_visible():
+		button_anim_player.play("ButtonHighlight")
 
 func _physics_process(dt):
 	var real_pos = body.transform.origin
 	var offset = ICON_Y_OFFSET
-	icon.set_position(cam.unproject_position(real_pos) + offset)
+	icon_button.set_position(cam.unproject_position(real_pos) + offset)

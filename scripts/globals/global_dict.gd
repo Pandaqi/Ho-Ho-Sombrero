@@ -14,40 +14,58 @@ var cfg = {
 
 var arenas = {
 	"menu": {
-		
+		"frame": -1
 	},
 	
 	"training": {
 		"tutorial": ["solo_mode"],
 		"auto_deliver_eggs": true,
 		"broken_eggs_spawn_powerups": false,
-		"eggs_allowed": ["regular"]
+		"eggs_allowed": ["regular"],
+		"frame": 1
 	},
 	
 	"forest": {
-		"eggs_allowed": ["regular", "jump", "dash", "move_faster", "move_slower"]
+		"eggs_allowed": ["regular", "jump", "dash", "move_faster", "move_slower"],
+		"frame": 2
 	}
 }
 
+#var colors = {
+#	"green": Color(123/255.0, 1.0, 47/255.0),
+#	"red": Color(1.0, 163/255.0, 125/255.0),
+#	"blue": Color(47/255.0, 129/255.0, 1.0),
+#	"lightblue": Color(152/255.0, 239/255.0, 1.0)
+#}
+
+var colors = {
+	"green": Color(0.0, 1.0, 0.0),
+	"red": Color(1.0, 0.0, 0.0),
+	"blue": Color(0, 0, 1.0),
+	"lightblue": Color(0.0, 1.0, 1.0),
+	"purple": Color(1.0, 0.0, 1.0),
+	"yellow": Color(1.0, 1.0, 0.0),
+}
+
 var eggs = {
-	"regular": { "frame": 0 },
-	"earthquake": { "frame": 1, "persistent": true }, # slanted sombrero
-	"jump": { "frame": 2, "button": true, "module": true, "persistent": true },
-	"dash": { "frame": 3, "button": true, "module": true, "persistent": true },
-	"attract": { "frame": 4, "button": true, "module": true, "persistent": true },
-	"repel": { "frame": 5, "button": true, "module": true, "persistent": true },
-	"freeze": { "frame": 6, "button": true, "module": true, "persistent": true },
-	"move_faster": { "frame": 7 },
-	"move_slower": { "frame": 8 },
-	"extra_bouncy": { "frame": 9 },
-	"less_bouncy": { "frame": 10 },
-	"icy_movement": { "frame": 11, "persistent": true },
-	"global_gravity_plus": { "frame": 12 },
-	"global_gravity_min": { "frame": 13 },
-	"global_egg_faster": { "frame": 14 },
-	"global_egg_slower": { "frame": 15 },
-	"frisbee": { "frame": 16, "button": true, "persistent": true },
-	"racket": { "frame": 17, "persistent": true }
+	"regular": { "frame": 0, "col": "red" },
+	"earthquake": { "frame": 1, "persistent": true, "col": "green" }, # slanted sombrero
+	"jump": { "frame": 2, "button": true, "module": true, "persistent": true, "col": "blue" },
+	"dash": { "frame": 3, "button": true, "module": true, "persistent": true, "col": "red" },
+	"attract": { "frame": 4, "button": true, "module": true, "persistent": true, "col": "lightblue" },
+	"repel": { "frame": 5, "button": true, "module": true, "persistent": true, "col": "lightblue" },
+	"freeze": { "frame": 6, "button": true, "module": true, "persistent": true, "col": "purple" },
+	"move_faster": { "frame": 7, "col": "red" },
+	"move_slower": { "frame": 8, "col": "red" },
+	"extra_bouncy": { "frame": 9, "col": "green" },
+	"less_bouncy": { "frame": 10, "col": "green" },
+	"icy_movement": { "frame": 11, "persistent": true, "col": "lightblue" },
+	"global_gravity_plus": { "frame": 12, "col": "blue" },
+	"global_gravity_min": { "frame": 13, "col": "blue" },
+	"global_egg_faster": { "frame": 14, "col": "red" },
+	"global_egg_slower": { "frame": 15, "col": "red" },
+	"frisbee": { "frame": 16, "button": true, "persistent": true, "col": "blue" },
+	"racket": { "frame": 17, "persistent": true, "col": "green" }
 }
 
 func create_temporary_config_for_arena(arena : String):

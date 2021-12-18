@@ -1,7 +1,8 @@
 extends Node
 
-const UP_INFLUENCE : float = 5.0
-const BOUNCE_POWER : float = 3.0
+const UP_INFLUENCE : float = 5.0 # how much more eggs bounce upward than realistically
+const WALL_INFLUENCE : float = 4.0 # how much walls push you _extra _inward
+const BOUNCE_POWER : float = 6.0
 
 var epsilon = 0.1
 var active : bool = true
@@ -18,6 +19,13 @@ func _integrate_forces(state):
 
 		if normal.y < 0: normal.y += 1.0
 		normal.y *= UP_INFLUENCE
+		
+		# TO DO: Make sure it bounces back quite quickly from walls? How?
+		if obj.is_in_group("Walls"):
+			if abs(normal.x) > abs(normal.z):
+				normal.x *= WALL_INFLUENCE
+			else:
+				normal.z *= WALL_INFLUENCE
 		
 		normal = normal.normalized()
 

@@ -11,6 +11,7 @@ onready var cam = get_node("/root/Main/Camera")
 onready var tween = $Tween
 onready var model = $Model
 onready var tutorial = $Tutorial
+onready var tutorial_sprite = $Tutorial/Sprite
 
 const TUT_OFFSET : Vector2 = Vector2.LEFT*100
 
@@ -72,6 +73,8 @@ func set_arena_tutorial(val):
 		start, end, 1.0,
 		Tween.TRANS_ELASTIC, Tween.EASE_OUT)
 	tween.start()
+	
+	tutorial_sprite.set_frame(GDict.arenas[arena].frame)
 
 func _physics_process(dt):
 	if not tutorial.is_visible(): return

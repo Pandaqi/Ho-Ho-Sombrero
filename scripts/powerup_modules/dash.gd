@@ -1,8 +1,8 @@
 extends Node
 
 const DASH_RESET_DURATION : float = 0.8
-const DASH_FORCE : float = 10.0
-const DAMPING : float = 0.05
+const DASH_FORCE : float = 3000.0
+const DAMPING : float = 4.0
 
 var body
 var force = 0.0
@@ -22,13 +22,13 @@ func _on_Input_button_release():
 	timer.start()
 
 func _physics_process(dt):
-	if force.length() <= 0.03: return
+	if force <= 0.03: return
 	
 	force *= (1.0 - DAMPING*dt)
 	body.mover.set_extra_speed(force)
 	
-	if force.length() <= 5:
-		force = Vector3.ZERO
+	if force <= 5:
+		force = 0
 		body.mover.set_extra_speed(0.0)
 
 func _on_Timer_timeout():

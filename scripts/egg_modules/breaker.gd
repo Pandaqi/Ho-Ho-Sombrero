@@ -4,6 +4,7 @@ var broken_egg_scene = preload("res://scenes/egg_broken.tscn")
 
 onready var body = get_parent()
 onready var main_node = get_node("/root/Main")
+onready var map = get_node("/root/Main/Map")
 
 onready var state = get_node("/root/Main/State")
 onready var powerups = get_node("/root/Main/Powerups")
@@ -29,6 +30,8 @@ func destroy_myself():
 	var e = broken_egg_scene.instance()
 	e.transform = body.transform
 	e.set_type(body.visuals.type)
+	
+	map.outline.paint(body)
 	
 	body.queue_free()
 	main_node.add_child(e)
