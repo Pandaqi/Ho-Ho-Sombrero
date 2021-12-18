@@ -17,12 +17,13 @@ var slanted_pin_joint = preload("res://scenes/sombrero_modules/slanted_pin_joint
 # USEFUL URL (about joints and PhysicsServer)
 # https://godotengine.org/qa/109572/how-to-keep-a-rigid-body-still-while-attaching-a-joint
 
-func _input(ev):
-	if ev.is_action_released("restart"):
-		var key = "regular"
-		if cur_joint_name == "regular": key = "racket"
-		
-		plan_joint(key)
+# DEBUGGING
+#func _input(ev):
+#	if ev.is_action_released("restart"):
+#		var key = "regular"
+#		if cur_joint_name == "regular": key = "racket"
+#
+#		plan_joint(key)
 
 func _integrate_forces(state):
 	if planned_joint == "": return

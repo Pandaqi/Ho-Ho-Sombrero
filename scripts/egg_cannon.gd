@@ -52,12 +52,16 @@ func _physics_process(dt):
 
 func _on_Timer_timeout():
 	shoot_egg(planned_type)
+	planned_type = ''
 
 func plan_shoot_egg(type : String):
 	planned_type = type
 	
 	timer.wait_time = rand_range(DELAY_PLANNED_SHOT.min, DELAY_PLANNED_SHOT.max)
 	timer.start()
+
+func has_egg_planned():
+	return (planned_type != '')
 
 # TO DO: wait until shooting animation is finished
 func is_busy():

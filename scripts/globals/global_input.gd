@@ -267,6 +267,6 @@ func get_num_keyboard_players():
 func get_tutorial_frame_for_player(player_num : int) -> int:
 	var id = get_device_id(player_num)
 	if id < 0:
-		return int(abs(id))
+		return int(abs(id)-1)
 	else:
-		return 0
+		return 4

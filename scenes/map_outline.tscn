@@ -24,8 +24,8 @@ shader_param/outline_tex = ExtResource( 1 )
 [sub_resource type="PlaneMesh" id=1]
 material = SubResource( 3 )
 size = Vector2( 80, 48 )
-subdivide_width = 50
-subdivide_depth = 50
+subdivide_width = 80
+subdivide_depth = 48
 
 [node name="Outline" type="Spatial"]
 script = ExtResource( 2 )

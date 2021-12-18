@@ -107,6 +107,9 @@ func add_module_if_exists():
 func remove_module_if_exists():
 	if not cur_module: return
 	
+	if cur_module.has_method("on_death"):
+		cur_module.on_death()
+	
 	cur_module.queue_free()
 	cur_module = null
 

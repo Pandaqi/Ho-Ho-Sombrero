@@ -19,3 +19,9 @@ func create_new_egg(options):
 	if no_option_available: return
 	
 	rand_cannon.plan_shoot_egg(type)
+
+func get_eggs_planned():
+	var sum = 0
+	for c in cannons:
+		if c.has_egg_planned(): sum += 1
+	return sum

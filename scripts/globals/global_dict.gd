@@ -6,6 +6,7 @@ var base_cfg = {
 	"auto_deliver_eggs": false,
 	"broken_eggs_spawn_powerups": true,
 	"solo_mode_two_sombreros": true,
+	"delivery_points_attract_eggs": true
 }
 
 var cfg = {
@@ -22,12 +23,12 @@ var arenas = {
 		"auto_deliver_eggs": true,
 		"broken_eggs_spawn_powerups": false,
 		"eggs_allowed": ["regular"],
-		"frame": 1
+		"frame": 0
 	},
 	
 	"forest": {
 		"eggs_allowed": ["regular", "jump", "dash", "move_faster", "move_slower"],
-		"frame": 2
+		"frame": 1
 	}
 }
 
@@ -48,7 +49,7 @@ var colors = {
 }
 
 var eggs = {
-	"regular": { "frame": 0, "col": "red" },
+	"regular": { "frame": 0, "col": "red", "no_powerup": true },
 	"earthquake": { "frame": 1, "persistent": true, "col": "green" }, # slanted sombrero
 	"jump": { "frame": 2, "button": true, "module": true, "persistent": true, "col": "blue" },
 	"dash": { "frame": 3, "button": true, "module": true, "persistent": true, "col": "red" },

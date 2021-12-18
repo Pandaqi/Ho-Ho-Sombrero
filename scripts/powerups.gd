@@ -12,6 +12,8 @@ func on_egg_broken(entity):
 	spawn_powerup(entity.transform.origin, entity.visuals.type)
 
 func spawn_powerup(pos : Vector3, type : String):
+	if GDict.eggs[type].has('no_powerup'): return
+	
 	var p = powerup_scene.instance()
 	p.set_translation(pos)
 	p.set_type(type)

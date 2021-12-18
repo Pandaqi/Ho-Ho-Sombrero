@@ -11,6 +11,9 @@ var delivered : bool = false
 func set_delivered():
 	delivered = true
 	
+	body.collision_layer = 16
+	body.collision_mask = 16
+	
 	bouncer.set_delivered()
 	visuals.set_delivered()
 	

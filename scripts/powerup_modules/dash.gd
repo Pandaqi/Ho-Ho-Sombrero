@@ -27,9 +27,18 @@ func _physics_process(dt):
 	force *= (1.0 - DAMPING*dt)
 	body.mover.set_extra_speed(force)
 	
-	if force <= 5:
-		force = 0
-		body.mover.set_extra_speed(0.0)
+	check_dash_end()
+
+func check_dash_end():
+	if force > 5: return
+	reset()
+
+func reset():
+	force = 0
+	body.mover.set_extra_speed(0.0)
 
 func _on_Timer_timeout():
 	dash_allowed = true
+
+func on_death():
+	reset()

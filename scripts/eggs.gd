@@ -49,18 +49,29 @@ func on_egg_broken(node):
 	check_new_eggs()
 
 func check_new_eggs(only_essential = true):
-	if only_essential and active_eggs.size() > NUM_EGG_BOUNDS.min: return
-	if active_eggs.size() >= NUM_EGG_BOUNDS.max: return
+	var num_eggs = count_total_eggs()
+	var num_players = get_tree().get_nodes_in_group("Players").size()
+	var solo_mode = (GInput.get_player_count() == 1)
+	
+	if only_essential and num_eggs > NUM_EGG_BOUNDS.min: return
+	if num_eggs >= NUM_EGG_BOUNDS.max: return
 	
 	if not only_essential:
 		var rand_max = NUM_EGG_BOUNDS.min + randi() % (NUM_EGG_BOUNDS.max + 1 - NUM_EGG_BOUNDS.min)
 		
-		print("RAND EGG MAX")
-		print(rand_max)
+		# we're allowed to overshoot the number of players, but only with a low probability
+		if rand_max > num_players:
+			if solo_mode and randf() <= 0.75:
+				rand_max = num_players
+			elif (not solo_mode) and randf() <= 0.35:
+				rand_max = num_players
 		
-		if active_eggs.size() >= rand_max: return
+		if num_eggs >= rand_max: return
 
 	cannons.create_new_egg(available_types)
+
+func count_total_eggs():
+	return active_eggs.size() + cannons.get_eggs_planned()
 
 func on_egg_created(node):
 	active_eggs.append(node)
