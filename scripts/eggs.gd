@@ -3,7 +3,7 @@ extends Node
 var NUM_EGG_BOUNDS
 
 const EGG_CHECK_INTERVAL : float = 5.0
-const NUM_TYPES_BOUNDS = { 'min': 2, 'max': 6 }
+const NUM_TYPES_BOUNDS = { 'min': 3, 'max': 6 }
 var available_types : Array = []
 var active_eggs : Array = []
 
@@ -44,9 +44,10 @@ func determine_available_types():
 			var my_id = GDict.eggs[new_type].id
 			var eggs_with_id = get_all_eggs_with_id(my_id)
 			
-			# this would shoot us over the limit? stop here and don't add anything
+			# this would shoot us over the limit? don't add anything and try something else
 			if (available_types.size() + eggs_with_id.size()) >= num_types:
-				break
+				all_types.pop_front()
+				continue
 			
 			for egg in eggs_with_id:
 				available_types.append(egg)

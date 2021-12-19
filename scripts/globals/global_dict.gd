@@ -30,6 +30,29 @@ var arenas = {
 	"forest": {
 		"eggs_allowed": ["regular", "jump", "dash", "move_faster", "move_slower"],
 		"frame": 1
+	},
+	
+	"desert": {
+		"eggs_allowed": ["regular", "jump", "attract", "repel", "extra_bouncy", "less_bouncy", "global_gravity_plus", "global_gravity_min", "levitate", "racket"],
+		"frame": 2,
+		"light_energy": 0.54
+	},
+	
+	"north_pole": {
+		"eggs_allowed": ["regular", "earthquake", "freeze", "icy_movement", "global_egg_faster", "global_egg_slower", "frisbee", "size_grow", "size_shrink", "point_bonus", "point_worthless"],
+		"frame": 3
+	},
+	
+	"christmas_city": {
+		"frame": 4
+	},
+	
+	"cuddly_clouds": {
+		"frame": 5
+	},
+	
+	"easter_island": {
+		"frame": 6
 	}
 }
 

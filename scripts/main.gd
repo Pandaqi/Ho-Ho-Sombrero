@@ -13,6 +13,7 @@ var arenas = {
 	'menu': preload("res://scenes/arenas/menu.tscn"),
 	'training': preload("res://scenes/arenas/training.tscn"),
 	'forest': preload("res://scenes/arenas/forest.tscn"),
+	'desert': preload("res://scenes/arenas/desert.tscn")
 }
 
 func _init():
@@ -45,6 +46,10 @@ func load_arena():
 	var type = G.get_current_arena()
 	
 	GDict.create_temporary_config_for_arena(type)
+	
+	var data = GDict.arenas[type]
+	if data.has('light_strength'):
+		$DirectionalLight.light_energy = data.light_strength
 	
 	map = arenas[type].instance()
 	map.name = "Map"

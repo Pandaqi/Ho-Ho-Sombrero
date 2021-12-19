@@ -6,7 +6,7 @@
 [ext_resource path="res://scripts/map.gd" type="Script" id=4]
 [ext_resource path="res://scripts/menu_selector.gd" type="Script" id=5]
 [ext_resource path="res://scenes/map_outline.tscn" type="PackedScene" id=6]
-[ext_resource path="res://assets/ui/arena_tutorials.png" type="Texture" id=7]
+[ext_resource path="res://scenes/menu_tutorial.tscn" type="PackedScene" id=7]
 
 [sub_resource type="SphereShape" id=1]
 radius = 3.42519
@@ -90,14 +90,7 @@ material/0 = null
 
 [node name="Tween" type="Tween" parent="MenuSelector"]
 
-[node name="Tutorial" type="Node2D" parent="MenuSelector"]
-
-[node name="Sprite" type="Sprite" parent="MenuSelector/Tutorial"]
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 7 )
-centered = false
-offset = Vector2( -256, -780 )
-hframes = 8
+[node name="Tutorial" parent="MenuSelector" instance=ExtResource( 7 )]
 
 [node name="MenuSelector2" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 5, -8.08843 )
@@ -134,14 +127,44 @@ material/0 = null
 
 [node name="Tween" type="Tween" parent="MenuSelector2"]
 
-[node name="Tutorial" type="Node2D" parent="MenuSelector2"]
+[node name="Tutorial" parent="MenuSelector2" instance=ExtResource( 7 )]
 
-[node name="Sprite" type="Sprite" parent="MenuSelector2/Tutorial"]
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 7 )
-centered = false
-offset = Vector2( -256, -780 )
-hframes = 8
+[node name="MenuSelector3" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 12.9116 )
+script = ExtResource( 5 )
+arena = "desert"
+
+[node name="StartArea" type="Area" parent="MenuSelector3"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="MenuSelector3/StartArea"]
+shape = SubResource( 1 )
+
+[node name="HoverArea" type="Area" parent="MenuSelector3"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="MenuSelector3/HoverArea"]
+shape = SubResource( 2 )
+
+[node name="Model" type="StaticBody" parent="MenuSelector3"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.215696, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="MenuSelector3/Model"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="MeshInstance" type="MeshInstance" parent="MenuSelector3/Model"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+material_override = ExtResource( 2 )
+mesh = SubResource( 15 )
+skeleton = NodePath("")
+material/0 = null
+
+[node name="Tween" type="Tween" parent="MenuSelector3"]
+
+[node name="Tutorial" parent="MenuSelector3" instance=ExtResource( 7 )]
 
 [node name="Outline" parent="." instance=ExtResource( 6 )]
 
@@ -153,3 +176,7 @@ hframes = 8
 [connection signal="body_exited" from="MenuSelector2/StartArea" to="MenuSelector2" method="_on_StartArea_body_exited"]
 [connection signal="body_entered" from="MenuSelector2/HoverArea" to="MenuSelector2" method="_on_HoverArea_body_entered"]
 [connection signal="body_exited" from="MenuSelector2/HoverArea" to="MenuSelector2" method="_on_HoverArea_body_exited"]
+[connection signal="body_entered" from="MenuSelector3/StartArea" to="MenuSelector3" method="_on_StartArea_body_entered"]
+[connection signal="body_exited" from="MenuSelector3/StartArea" to="MenuSelector3" method="_on_StartArea_body_exited"]
+[connection signal="body_entered" from="MenuSelector3/HoverArea" to="MenuSelector3" method="_on_HoverArea_body_entered"]
+[connection signal="body_exited" from="MenuSelector3/HoverArea" to="MenuSelector3" method="_on_HoverArea_body_exited"]
