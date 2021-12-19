@@ -29,6 +29,8 @@ var swivel_dir : float = 0.0
 onready var barrel = $Barrel
 onready var barrel_tip = $Barrel/BarrelTip
 
+onready var anim_player = $AnimationPlayer
+
 onready var swivel_timer = $SwivelTimer
 const SWIVEL_TIME_BOUNDS = { 'min': 0.3, 'max': 0.8 }
 
@@ -57,6 +59,7 @@ func _on_Timer_timeout():
 func plan_shoot_egg(type : String):
 	planned_type = type
 	
+	anim_player.play("Windup")
 	timer.wait_time = rand_range(DELAY_PLANNED_SHOT.min, DELAY_PLANNED_SHOT.max)
 	timer.start()
 
@@ -82,10 +85,12 @@ func shoot_egg(type : String = ""):
 	e.transform = e.transform.looking_at(shoot_pos + shoot_vec, Vector3.UP)
 	e.apply_central_impulse(shoot_vec)
 	
-	e.get_node("Visuals").set_shape(GDict.cfg.fixed_egg_shape)
+	e.get_node("Visuals").set_shape(powerups.get_cur_egg_shape())
 	main_node.add_child(e)
 	
 	if type == "": type = fixed_type
 	e.visuals.set_type(type)
 	
 	eggs.on_egg_created(e)
+	
+	anim_player.play("Shot")

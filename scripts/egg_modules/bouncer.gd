@@ -6,6 +6,7 @@ const BOUNCE_POWER : float = 6.0
 
 var epsilon = 0.1
 var active : bool = true
+var players_touched = []
 
 onready var body = get_parent()
 onready var powerups = get_node("/root/Main/Powerups")
@@ -34,11 +35,19 @@ func _integrate_forces(state):
 		var final_bounce_power = BOUNCE_POWER
 		if obj.is_in_group("Players"):
 			final_bounce_power *= obj.powerups.get_final_bounce_factor()
+			
+			var num = obj.status.player_num
+			if not (num in players_touched):
+				players_touched.append(num)
+			
 		final_bounce_power *= powerups.get_egg_speed_modifier()
 		
 		state.apply_central_impulse(normal * final_bounce_power)
 		body.visuals.on_bounce(original_normal)
 		break
+
+func get_num_unique_players_touched():
+	return players_touched.size()
 
 func set_delivered():
 	active = false

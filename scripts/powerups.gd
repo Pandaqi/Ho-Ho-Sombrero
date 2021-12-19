@@ -4,8 +4,12 @@ const DEF_GRAVITY = 9.8/10
 
 var point_factor : float = 1.0
 var egg_speed_modifier : float = 1.0
+var cur_egg_shape = 'egg'
 
 var powerup_scene = preload("res://scenes/single_powerup.tscn")
+
+func activate():
+	cur_egg_shape = GDict.cfg.fixed_egg_shape
 
 func on_egg_broken(entity):
 	if not GDict.cfg.broken_eggs_spawn_powerups: return
@@ -31,7 +35,19 @@ func get_egg_speed_modifier():
 	return egg_speed_modifier
 
 func modify_point_factor(new_factor : float):
-	point_factor = new_factor
+	point_factor = clamp(point_factor * new_factor, 0.5, 2.0)
 
 func get_point_factor():
 	return point_factor
+
+func get_cur_egg_shape():
+	return cur_egg_shape
+
+func change_egg_shape(type : String = "egg"):
+	# same as current type? it toggles back to regular
+	if cur_egg_shape == type:
+		cur_egg_shape = "egg"
+		return
+	
+	# otherwise we just set it to what we received
+	cur_egg_shape = type

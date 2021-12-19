@@ -34,3 +34,10 @@ func cap_velocity(state):
 	var new_vel = vel_without_y.normalized() * magnitude
 	new_vel.y = vel.y
 	state.set_linear_velocity(new_vel)
+
+func get_point_factor():
+	var val = 1
+	if visuals.type == "point_bonus": val = 2
+	elif visuals.type == "point_worthless": val = 0
+	elif visuals.type == "toucher": val = bouncer.get_num_unique_players_touched()
+	return val

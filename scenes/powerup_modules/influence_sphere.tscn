@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=2]
+
+[sub_resource type="Shader" id=65]
+code = "shader_type spatial;
+
+uniform sampler2D noise_tex;
+
+void fragment() {
+	vec2 uv = UV + vec2(sin(TIME), cos(TIME+UV.x))*0.5;
+	ALBEDO = vec3(0.0, 1.0, 1.0);
+	ALPHA = smoothstep(0.0, 1.0, (texture(noise_tex, uv).r-0.6)*10.0) * 0.5 * abs(sin(TIME));
+}"
+
+[sub_resource type="OpenSimplexNoise" id=67]
+
+[sub_resource type="NoiseTexture" id=68]
+seamless = true
+noise = SubResource( 67 )
+
+[sub_resource type="ShaderMaterial" id=66]
+shader = SubResource( 65 )
+shader_param/noise_tex = SubResource( 68 )
+
+[sub_resource type="SphereMesh" id=64]
+radius = 11.0
+height = 22.0
+radial_segments = 16
+rings = 8
+
+[sub_resource type="Animation" id=69]
+resource_name = "InfluenceSphere"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("InfluenceSphere:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 1.1, 1.1, 1.1 ), Vector3( 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=70]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("InfluenceSphere:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ) ]
+}
+
+[node name="InfluenceSphere" type="MeshInstance"]
+transform = Transform( 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 9, 0, 0 )
+material_override = SubResource( 66 )
+mesh = SubResource( 64 )
+material/0 = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+anims/InfluenceSphere = SubResource( 69 )
+anims/RESET = SubResource( 70 )

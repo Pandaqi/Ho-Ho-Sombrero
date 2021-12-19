@@ -1,6 +1,7 @@
 extends Node
 
 var broken_egg_scene = preload("res://scenes/egg_broken.tscn")
+var bomb_scene = preload("res://scenes/egg_modules/powerup_bomb.tscn")
 
 onready var body = get_parent()
 onready var main_node = get_node("/root/Main")
@@ -33,9 +34,16 @@ func destroy_myself():
 	
 	map.outline.paint(body)
 	
+	if body.visuals.type == "bomb": place_bomb()
+	
 	body.queue_free()
 	main_node.add_child(e)
 	powerups.on_egg_broken(body)
 	state.on_egg_broken(body)
 	
 	body.emit_signal("on_death")
+
+func place_bomb():
+	var b = bomb_scene.instance()
+	b.set_translation(body.transform.origin)
+	map.add_child(b)

@@ -36,9 +36,36 @@ func determine_available_types():
 	all_types.shuffle()
 	
 	var num_types = floor(rand_range(NUM_TYPES_BOUNDS.min, NUM_TYPES_BOUNDS.max))
-	available_types = all_types.slice(0, num_types)
+	available_types = []
+	
+	while available_types.size() < num_types:
+		var new_type = all_types[0]
+		if GDict.eggs[new_type].has('id'):
+			var my_id = GDict.eggs[new_type].id
+			var eggs_with_id = get_all_eggs_with_id(my_id)
+			
+			# this would shoot us over the limit? stop here and don't add anything
+			if (available_types.size() + eggs_with_id.size()) >= num_types:
+				break
+			
+			for egg in eggs_with_id:
+				available_types.append(egg)
+				all_types.erase(egg)
+		else:
+			available_types.append(new_type)
+		
+		all_types.erase(new_type)
 	
 	GUI.display_egg_tutorials(available_types)
+
+func get_all_eggs_with_id(id : String):
+	var arr = []
+	for egg in GDict.eggs:
+		var data = GDict.eggs[egg]
+		if not data.has('id'): continue
+		if data.id != id: continue
+		arr.append(egg)
+	return arr
 
 func on_egg_delivered(node):
 	active_eggs.erase(node)
