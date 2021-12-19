@@ -3,11 +3,11 @@
 [node name="PinJoint" type="Generic6DOFJoint"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.456748, 0 )
 linear_limit_x/restitution = 0.1
-angular_limit_x/upper_angle = 4.0
-angular_limit_x/lower_angle = -4.0
+angular_limit_x/upper_angle = 8.0
+angular_limit_x/lower_angle = -8.0
 linear_limit_y/restitution = 0.1
-angular_limit_y/upper_angle = 4.0
-angular_limit_y/lower_angle = -4.0
+angular_limit_y/upper_angle = 8.0
+angular_limit_y/lower_angle = -8.0
 linear_limit_z/restitution = 0.1
-angular_limit_z/upper_angle = 4.0
-angular_limit_z/lower_angle = -4.0
+angular_limit_z/upper_angle = 8.0
+angular_limit_z/lower_angle = -8.0

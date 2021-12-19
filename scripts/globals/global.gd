@@ -13,11 +13,13 @@ func get_current_arena():
 
 func goto_menu():
 	mode = "menu"
+# warning-ignore:return_value_discarded
 	get_tree().change_scene_to(scenes.game)
 
 func goto_game(arena_key : String):
 	arena = arena_key
 	mode = "game"
+# warning-ignore:return_value_discarded
 	get_tree().change_scene_to(scenes.game)
 
 func in_game():

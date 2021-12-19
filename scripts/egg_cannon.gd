@@ -82,6 +82,7 @@ func shoot_egg(type : String = ""):
 	e.transform = e.transform.looking_at(shoot_pos + shoot_vec, Vector3.UP)
 	e.apply_central_impulse(shoot_vec)
 	
+	e.get_node("Visuals").set_shape(GDict.cfg.fixed_egg_shape)
 	main_node.add_child(e)
 	
 	if type == "": type = fixed_type

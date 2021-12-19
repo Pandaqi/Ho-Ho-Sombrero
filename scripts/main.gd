@@ -5,6 +5,7 @@ onready var eggs = $Eggs
 onready var cannons = $Cannons
 onready var players = $Players
 onready var solo_mode = $SoloMode
+onready var settings = $TechnicalSettings
 
 var map
 var arenas = {
@@ -27,12 +28,14 @@ func _ready():
 	
 	if G.in_menu():
 		players.activate()
+		settings.activate()
 	
 	else:
 		state.activate()
 		cannons.activate() # NOTE: must come before eggs
 		eggs.activate()
 		players.activate()
+		settings.queue_free()
 	
 	solo_mode.activate()
 

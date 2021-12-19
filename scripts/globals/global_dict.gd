@@ -6,7 +6,8 @@ var base_cfg = {
 	"auto_deliver_eggs": false,
 	"broken_eggs_spawn_powerups": true,
 	"solo_mode_two_sombreros": true,
-	"delivery_points_attract_eggs": true
+	"delivery_points_attract_eggs": true,
+	"fixed_egg_shape": "egg",
 }
 
 var cfg = {

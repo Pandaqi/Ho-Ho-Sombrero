@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 onready var players = get_node("../Players")
+onready var pause_menu = get_node("../PauseMenu")
 var player_bodies : Array
 
 var input_enabled : bool = false
@@ -19,10 +20,12 @@ func activate():
 		self_destruct()
 		return
 	
+	pause_menu.disable()
 	player_bodies = get_tree().get_nodes_in_group("Players")
 	initialize_solo_mode()
 
 func self_destruct():
+	pause_menu.enable()
 	self.queue_free()
 
 func initialize_solo_mode():
@@ -50,6 +53,7 @@ func _input(ev):
 	if tutorial_active:
 		if (ev is InputEventKey) or (ev is InputEventJoypadButton):
 			hide_tutorial()
+			get_tree().set_input_as_handled()
 		return
 	
 	if ev.is_action_released("switch"):

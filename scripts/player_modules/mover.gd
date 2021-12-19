@@ -1,14 +1,14 @@
 extends Node
 
 const ROT_SPEED : float = 2.0
-const MOVE_SPEED : float = 850.0
-const SPEED_BOUNDS = { 'min': 400.0, 'max': 1500.0 }
+const MOVE_SPEED : float = 960.0
+const SPEED_BOUNDS = { 'min': 550.0, 'max': 1800.0 }
 
 var speed_modifier : float = 1.0
 var slip_factor : float = 0.0
 
 onready var body = get_parent()
-var input_vec
+var input_vec : Vector2 = Vector2.ZERO
 var fps_dt = (1.0/60.0)
 
 var extra_speed : float = 0.0

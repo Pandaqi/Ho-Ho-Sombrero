@@ -23,15 +23,15 @@ func get_valid_bodies():
 		if vec_to_them.dot(parent.global_transform.basis.y) < 0: continue
 		
 		# very much not _moving_ towards opening
-		if body.linear_velocity.dot(parent.global_transform.basis.y) > 0.5: continue
+#		if body.linear_velocity.dot(parent.global_transform.basis.y) > 0.5: continue
 		
 		if body.status.delivered: continue
 		
 		arr.append(body)
 		
-		# new one? reset some properties
+		# new one? reset some properties to prevent them from falling down before they reach us
 		if not body in valid_bodies:
-			body.linear_velocity.y *= 0.4
+			body.linear_velocity.y *= 0.2
 			body.gravity_scale = 0.0
 	
 	return arr

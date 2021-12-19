@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=11]
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform float height;
+
+void fragment() {
+	float real_pos = UV.y*height;
+	float alpha = 0.0;
+	if(real_pos - floor(real_pos) < 0.5) {
+		alpha = 0.6;
+	}
+	
+	ALBEDO = vec3(0.8,0.8,0.8);
+	ALPHA = alpha;
+}"
+
+[resource]
+shader = SubResource( 11 )
+shader_param/height = 2.0

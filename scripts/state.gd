@@ -12,6 +12,7 @@ var in_game_over : bool = false
 
 onready var gui = get_node("../GUI")
 onready var game_over = get_node("../GameOver")
+onready var pause_menu = get_node("../PauseMenu")
 onready var powerups = get_node("../Powerups")
 onready var eggs = get_node("../Eggs")
 
@@ -28,8 +29,8 @@ func on_egg_broken(node):
 	
 	check_game_over()
 
-func on_egg_delivered(node):
-	eggs_delivered += 1 * powerups.get_point_factor()
+func on_egg_delivered(node, points : int = 0):
+	eggs_delivered += points * powerups.get_point_factor()
 	gui.update_delivered(eggs_delivered, target_delivered)
 	eggs.on_egg_delivered(node)
 	
@@ -53,6 +54,8 @@ func game_over(we_won):
 	in_game_over = true
 	get_tree().paused = true
 	
+	pause_menu.disable()
+	
 	var time_elapsed = (OS.get_ticks_msec() - start_time)/1000.0
 	game_over.show(time_elapsed)
 
@@ -60,9 +63,15 @@ func _input(ev):
 	if not in_game_over: return
 	
 	if ev.is_action_released("restart"):
-		get_tree().paused = false
-		get_tree().reload_current_scene()
+		restart()
 	
 	elif ev.is_action_released("back"):
-		get_tree().paused = false
-		G.goto_menu()
+		back_to_menu()
+
+func restart():
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+func back_to_menu():
+	get_tree().paused = false
+	G.goto_menu()

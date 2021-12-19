@@ -1,22 +1,42 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scripts/solo_mode.gd" type="Script" id=1]
 [ext_resource path="res://assets/ui/solo_mode_tutorial.png" type="Texture" id=2]
 [ext_resource path="res://scripts/main.gd" type="Script" id=3]
+[ext_resource path="res://assets/ui/delivery_counter.png" type="Texture" id=4]
+[ext_resource path="res://assets/ui/pause_menu.png" type="Texture" id=5]
+[ext_resource path="res://scripts/pause_menu.gd" type="Script" id=6]
 [ext_resource path="res://scripts/state.gd" type="Script" id=7]
 [ext_resource path="res://scripts/camera.gd" type="Script" id=8]
 [ext_resource path="res://assets/fonts/kavoon_regular.tres" type="DynamicFont" id=9]
 [ext_resource path="res://scripts/GUI.gd" type="Script" id=10]
+[ext_resource path="res://assets/ui/settings/open_settings.png" type="Texture" id=11]
+[ext_resource path="res://scenes/settings/technical_settings.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scripts/eggs.gd" type="Script" id=13]
 [ext_resource path="res://assets/ui/game_over.png" type="Texture" id=14]
 [ext_resource path="res://assets/fonts/kavoon_regular.ttf" type="DynamicFontData" id=15]
 [ext_resource path="res://scripts/game_over.gd" type="Script" id=16]
 [ext_resource path="res://scripts/powerups.gd" type="Script" id=17]
+[ext_resource path="res://assets/ui/new_player.png" type="Texture" id=18]
 [ext_resource path="res://scripts/cannons.gd" type="Script" id=23]
 [ext_resource path="res://scripts/players.gd" type="Script" id=27]
 
-[sub_resource type="DynamicFont" id=27]
+[sub_resource type="DynamicFont" id=28]
 size = 96
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=29]
+size = 24
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=27]
+size = 128
+outline_size = 13
+outline_color = Color( 0.921569, 0.678431, 0.678431, 1 )
 font_data = ExtResource( 15 )
 
 [node name="Main" type="Spatial"]
@@ -54,19 +74,43 @@ script = ExtResource( 10 )
 
 [node name="Counters" type="Node2D" parent="GUI"]
 
-[node name="Delivered" type="Label" parent="GUI/Counters"]
-margin_right = 104.0
-margin_bottom = 21.0
-custom_fonts/font = ExtResource( 9 )
-text = "Delivered: 00"
+[node name="Sprite" type="Sprite" parent="GUI/Counters"]
+position = Vector2( 56, 56 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 4 )
+
+[node name="Delivered" type="Label" parent="GUI/Counters/Sprite"]
+margin_left = -87.0
+margin_top = -77.0
+margin_right = 88.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 28 )
+text = "15"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Broken" type="Label" parent="GUI/Counters"]
-margin_top = 25.0
-margin_right = 104.0
-margin_bottom = 46.0
+[node name="DeliveredTarget" type="Label" parent="GUI/Counters/Sprite"]
+modulate = Color( 1, 1, 1, 0.796078 )
+margin_left = -52.0
+margin_top = 40.0
+margin_right = 53.0
+margin_bottom = 71.0
+custom_fonts/font = SubResource( 29 )
+text = "/15"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Broken" type="Label" parent="GUI/Counters/Sprite"]
+margin_left = -140.0
+margin_top = -77.5
+margin_right = -36.0
+margin_bottom = -56.5
 custom_fonts/font = ExtResource( 9 )
 text = "Broken: 00"
 __meta__ = {
@@ -74,6 +118,20 @@ __meta__ = {
 }
 
 [node name="EggTutorials" type="Node2D" parent="GUI"]
+
+[node name="Settings" type="Node2D" parent="GUI"]
+
+[node name="OpenSettings" type="Sprite" parent="GUI/Settings"]
+position = Vector2( 5, 5 )
+scale = Vector2( 0.66, 0.66 )
+texture = ExtResource( 11 )
+centered = false
+
+[node name="NewPlayer" type="Sprite" parent="GUI/Settings"]
+position = Vector2( 5, 100 )
+scale = Vector2( 0.66, 0.66 )
+texture = ExtResource( 18 )
+centered = false
 
 [node name="SoloMode" type="CanvasLayer" parent="."]
 pause_mode = 2
@@ -85,6 +143,11 @@ anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ColorRect" type="ColorRect" parent="SoloMode/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.584314 )
 
 [node name="TextureRect" type="TextureRect" parent="SoloMode/Control"]
 anchor_right = 1.0
@@ -98,12 +161,44 @@ wait_time = 0.6
 one_shot = true
 autostart = true
 
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+pause_mode = 2
+script = ExtResource( 6 )
+
+[node name="Control" type="Control" parent="PauseMenu"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.364706 )
+
+[node name="TextureRect" type="TextureRect" parent="PauseMenu/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
 [node name="GameOver" type="CanvasLayer" parent="."]
 script = ExtResource( 16 )
 
 [node name="Control" type="Control" parent="GameOver"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="GameOver/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.541176 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -126,12 +221,15 @@ __meta__ = {
 }
 
 [node name="TimeLabel" type="Label" parent="GameOver/Control/CenterContainer"]
-margin_left = 378.0
-margin_top = 239.0
-margin_right = 646.0
-margin_bottom = 360.0
+margin_left = 332.0
+margin_top = 219.0
+margin_right = 691.0
+margin_bottom = 380.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 27 )
 text = "00:00"
+
+[node name="TechnicalSettings" parent="." instance=ExtResource( 12 )]
 
 [connection signal="timeout" from="Eggs/Timer" to="Eggs" method="_on_Timer_timeout"]
 [connection signal="timeout" from="SoloMode/Timer" to="SoloMode" method="_on_Timer_timeout"]

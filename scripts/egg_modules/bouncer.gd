@@ -7,6 +7,7 @@ const BOUNCE_POWER : float = 6.0
 var epsilon = 0.1
 var active : bool = true
 
+onready var body = get_parent()
 onready var powerups = get_node("/root/Main/Powerups")
 
 func _integrate_forces(state):
@@ -15,6 +16,7 @@ func _integrate_forces(state):
 	for i in range(state.get_contact_count()):
 		var obj = state.get_contact_collider_object(i)
 		var normal = state.get_contact_local_normal(i)
+		var original_normal = normal
 		if obj.is_in_group("NormalBouncer"): continue
 
 		if normal.y < 0: normal.y += 1.0
@@ -35,6 +37,7 @@ func _integrate_forces(state):
 		final_bounce_power *= powerups.get_egg_speed_modifier()
 		
 		state.apply_central_impulse(normal * final_bounce_power)
+		body.visuals.on_bounce(original_normal)
 		break
 
 func set_delivered():

@@ -7,7 +7,7 @@ onready var map = get_node("../Map")
 const ZOOM_SPEED : float = 3.0
 
 # Values ar given based on the "base_vp" => they are rescaled if necessary for (wildly) different viewports
-const EDGE_MARGIN : float = 100.0
+const EDGE_MARGIN : float = 120.0
 const INNER_EDGE_MARGIN : float = EDGE_MARGIN + 35.0
 const OFFSCREEN_MARGIN : float = 10.0
 
