@@ -19,11 +19,25 @@ var extra_speed : float = 0.0
 var extra_force : Vector3 = Vector3.ZERO
 var last_known_input : Vector2
 
+var MOVE_AUDIO_VOLUME : float = -6.0
+var audio_player = null
+
+func _ready():
+	create_move_audio()
+
+func create_move_audio():
+	var key = "walking"
+	audio_player = GAudio.play_dynamic_sound(body, key, MOVE_AUDIO_VOLUME, "FX", false)
+	audio_player.get_parent().remove_child(audio_player)
+	add_child(audio_player)
+	audio_player.stop()
+
 func _on_Input_move_vec(vec, dt):
 	input_vec = vec
 
 func _integrate_forces(state):
 	if stunned: return
+	if not audio_player: return
 	
 	var cur_vel = state.get_linear_velocity()
 	
@@ -58,11 +72,18 @@ func _integrate_forces(state):
 		if extra_speed < 0.03: 
 			wanted_vel = Vector3.ZERO
 		state.set_angular_velocity(Vector3.ZERO)
+		stop_moving()
+	
+	if wanted_vel.length() >= 0.03 and not audio_player.is_playing():
+		audio_player.play()
 	
 	wanted_vel = Vector3(wanted_vel.x, cur_vel.y, wanted_vel.z)
 	state.set_linear_velocity(wanted_vel)
 	
 	if input_vec.length() >= 0.03: last_known_input = input_vec
+
+func stop_moving():
+	if audio_player.is_playing(): audio_player.stop()
 
 func get_final_speed():
 	return clamp(MOVE_SPEED*speed_modifier, SPEED_BOUNDS.min, SPEED_BOUNDS.max) + extra_speed

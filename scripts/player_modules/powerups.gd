@@ -15,6 +15,7 @@ onready var input = get_node("../Input")
 onready var powerups = get_node("/root/Main/Powerups")
 onready var GUI = get_node("/root/Main/GUI")
 onready var cam = get_node("/root/Main/Camera")
+onready var feedback = get_node("/root/Main/Feedback")
 
 onready var icon_button = $IconButton
 onready var button_anim_player = $IconButton/AnimationPlayer
@@ -42,6 +43,10 @@ func grab(tp : String):
 	
 	type = tp
 	data = GDict.eggs[type]
+	
+	if data.has("fb"):
+		feedback.create_for(body, data.fb)
+	GAudio.play_dynamic_sound(body, "powerup_grab")
 	
 	handle_immediate_effect()
 	add_module_if_exists()

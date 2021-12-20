@@ -7,7 +7,32 @@ var bg_audio_player
 var active_players = []
 
 var audio_preload = {
+	"crack": [
+		preload("res://assets/audio/egg_crack_1.ogg"),
+		preload("res://assets/audio/egg_crack_2.ogg"),
+		preload("res://assets/audio/egg_crack_3.ogg")
+	],
 	
+	"button": preload("res://assets/audio/ui_button_press.ogg"),
+	"player_switch": null, # TO DO
+	"walking": preload("res://assets/audio/walking.ogg"),
+	
+	"shoot": [
+		preload("res://assets/audio/shoot1.ogg"),
+		preload("res://assets/audio/shoot2.ogg"),
+		preload("res://assets/audio/shoot3.ogg")
+	],
+	
+	"bounce": [
+		preload("res://assets/audio/bounce1.ogg"),
+		preload("res://assets/audio/bounce2.ogg"),
+		preload("res://assets/audio/bounce3.ogg")
+	],
+	
+	"thud": preload("res://assets/audio/thud1.ogg"),
+	"powerup_grab": preload("res://assets/audio/powerup_grab.ogg"),
+	"delivery": preload("res://assets/audio/delivery.ogg"),
+	"game_win": preload("res://assets/audio/game_win.ogg")
 }
 
 func _ready():
@@ -67,9 +92,6 @@ func play_static_sound(key, volume_alteration = 0, bus : String = "GUI"):
 
 func play_dynamic_sound(creator, key, volume_alteration = 0, bus : String = "FX", destroy_when_done : bool = true):
 	if not audio_preload.has(key): return
-	if not G.level_load_complete: return
-	if G.undo_mode and active_players.size() > 0: return
-	
 	var audio_player = create_audio_player(volume_alteration, bus, true, destroy_when_done)
 	
 	var pos = null
@@ -79,11 +101,11 @@ func play_dynamic_sound(creator, key, volume_alteration = 0, bus : String = "FX"
 		pos = creator.get_global_position()
 		audio_player.set_position(pos)
 	else:
-		max_dist = 40
+		max_dist = 100
 		pos = creator.get_translation()
 		audio_player.set_translation(pos)
 		
-		audio_player.unit_size = 10
+		audio_player.unit_size = 100
 
 	audio_player.max_distance = max_dist
 	audio_player.pitch_scale = 1.0 + 0.02*(randf()-0.5)

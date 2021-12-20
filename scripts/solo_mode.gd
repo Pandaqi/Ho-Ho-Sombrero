@@ -53,11 +53,13 @@ func _input(ev):
 	if tutorial_active:
 		if (ev is InputEventKey) or (ev is InputEventJoypadButton):
 			hide_tutorial()
+			GAudio.play_static_sound("button")
 			get_tree().set_input_as_handled()
 		return
 	
 	if ev.is_action_released("switch"):
 		switch_between_players()
+		GAudio.play_static_sound("player_switch")
 
 func switch_between_players():
 	var cur_active = player_bodies[0]

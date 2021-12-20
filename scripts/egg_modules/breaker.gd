@@ -11,6 +11,7 @@ onready var state = get_node("/root/Main/State")
 onready var powerups = get_node("/root/Main/Powerups")
 
 onready var status = get_node("../Status")
+onready var feedback = get_node("/root/Main/Feedback")
 
 var epsilon = 0.05
 
@@ -35,6 +36,10 @@ func destroy_myself():
 	map.outline.paint(body)
 	
 	if body.visuals.type == "bomb": place_bomb()
+	
+	var break_fbs = ["Oh no!", "Lost", "Too bad", "Wow", "No way!", "Why?!", "So young ..."]
+	feedback.create_for(body, break_fbs[randi() % break_fbs.size()])
+	GAudio.play_dynamic_sound(body, "crack")
 	
 	body.queue_free()
 	main_node.add_child(e)

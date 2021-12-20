@@ -33,12 +33,17 @@ func _integrate_forces(state):
 		normal = normal.normalized()
 
 		var final_bounce_power = BOUNCE_POWER
-		if obj.is_in_group("Players"):
-			final_bounce_power *= obj.powerups.get_final_bounce_factor()
+		if obj.is_in_group("Sombreros"):
+			var linked_player = obj.player
+			final_bounce_power *= linked_player.powerups.get_final_bounce_factor()
 			
-			var num = obj.status.player_num
+			var num = linked_player.status.player_num
 			if not (num in players_touched):
 				players_touched.append(num)
+			
+			GAudio.play_dynamic_sound(body, "bounce")
+		else:
+			GAudio.play_dynamic_sound(body, "thud")
 			
 		final_bounce_power *= powerups.get_egg_speed_modifier()
 		

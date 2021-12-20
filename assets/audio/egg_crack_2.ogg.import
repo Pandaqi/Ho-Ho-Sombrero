@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/egg_crack_2.ogg-1b58d8859259f9862e2feef9a666c1c0.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/egg_crack_2.ogg"
+dest_files=[ "res://.import/egg_crack_2.ogg-1b58d8859259f9862e2feef9a666c1c0.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

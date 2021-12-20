@@ -29,8 +29,12 @@ func hide():
 	get_tree().paused = false
 	control.set_visible(false)
 	active = false
+	
+	GAudio.play_static_sound("button")
 
 func show():
 	get_tree().paused = true
 	control.set_visible(true)
 	active = true
+	
+	GAudio.play_static_sound("button")

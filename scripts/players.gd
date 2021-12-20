@@ -36,3 +36,5 @@ func create_menu_player(p_num : int):
 	
 	var t = tutorial_module.instance()
 	p.get_node("Player").add_child(t)
+	
+	return p

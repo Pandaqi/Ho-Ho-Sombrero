@@ -9,6 +9,7 @@ var force = 0.0
 var dash_allowed = true
 
 onready var timer = $Timer
+onready var feedback = get_node("/root/Main/Feedback")
 
 func _on_Input_button_press():
 	pass
@@ -20,6 +21,10 @@ func _on_Input_button_release():
 	
 	timer.wait_time = DASH_RESET_DURATION
 	timer.start()
+	
+	var data = body.powerups.data
+	if data.has("fb_use"):
+		feedback.create_for(body, data.fb_use)
 
 func _physics_process(dt):
 	if force <= 0.03: return

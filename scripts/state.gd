@@ -15,6 +15,7 @@ onready var game_over = get_node("../GameOver")
 onready var pause_menu = get_node("../PauseMenu")
 onready var powerups = get_node("../Powerups")
 onready var eggs = get_node("../Eggs")
+onready var feedback = get_node("../Feedback")
 
 func activate():
 	gui.update_broken(0, target_broken)
@@ -31,7 +32,18 @@ func on_egg_broken(node):
 
 func on_egg_delivered(node, points : int = 0):
 	var final_points = points * powerups.get_point_factor() * node.get_point_factor()
-	eggs_delivered += int(ceil(final_points))
+	final_points = int(ceil(final_points))
+	
+	var fb_txt = "+" + str(final_points) + " points!"
+	feedback.create_for(node, fb_txt)
+	GAudio.play_dynamic_sound(node, "delivery")
+	
+	eggs_delivered += final_points
+	
+	if eggs_delivered >= (target_delivered - 3):
+		for p in get_tree().get_nodes_in_group("Players"):
+			feedback.create_for(p, "Almost won!")
+	
 	gui.update_delivered(eggs_delivered, target_delivered)
 	eggs.on_egg_delivered(node)
 	
@@ -55,6 +67,8 @@ func game_over(we_won):
 	in_game_over = true
 	get_tree().paused = true
 	
+	GAudio.play_static_sound("game_win")
+	
 	pause_menu.disable()
 	
 	var time_elapsed = (OS.get_ticks_msec() - start_time)/1000.0
@@ -70,9 +84,11 @@ func _input(ev):
 		back_to_menu()
 
 func restart():
+	GAudio.play_static_sound("button")
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
 func back_to_menu():
+	GAudio.play_static_sound("button")
 	get_tree().paused = false
 	G.goto_menu()

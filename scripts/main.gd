@@ -7,6 +7,7 @@ onready var players = $Players
 onready var solo_mode = $SoloMode
 onready var settings = $TechnicalSettings
 onready var powerups = $Powerups
+onready var feedback = $Feedback
 
 var map
 var arenas = {
@@ -55,5 +56,6 @@ func load_arena():
 	map.name = "Map"
 	add_child(map)
 
-func on_player_logged_in():
-	pass
+func on_player_logged_in(node):
+	GAudio.play_static_sound("button")
+	feedback.create_for(node, "Welcome!")

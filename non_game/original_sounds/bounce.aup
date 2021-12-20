@@ -1,0 +1,78 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="bounce_data" version="1.3.0" audacityversion="2.3.3" sel0="0.9220306571" sel1="1.4526429020" vpos="0" h="0.0000000000" zoom="637.7096036585" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags>
+		<tag name="Software" value="Lavf59.9.101"/>
+		<tag name="major_brand" value="dash"/>
+		<tag name="minor_version" value="0"/>
+		<tag name="compatible_brands" value="iso6mp41"/>
+	</tags>
+	<wavetrack name="Cartoon Boing Sound Effect 2" isSelected="1" height="150" minimized="0" channel="0" linked="1" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="21922">
+				<waveblock start="0">
+					<simpleblockfile filename="e0808b0d.au" len="21922" min="-0.659033" max="0.707944" rms="0.155001"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+		<waveclip offset="0.92203066" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="226">
+				<waveblock start="0">
+					<simpleblockfile filename="e08089a9.au" len="226" min="-0.059647" max="0.067175" rms="0.015332"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+		<waveclip offset="0.92715537" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="23174">
+				<waveblock start="0">
+					<simpleblockfile filename="e0808484.au" len="23174" min="-0.625283" max="0.66838" rms="0.15221"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+		<waveclip offset="0.54727891" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="14799">
+				<waveblock start="0">
+					<simpleblockfile filename="e0808ec4.au" len="14799" min="-0.740852" max="0.667829" rms="0.188321"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Cartoon Boing Sound Effect 2" isSelected="1" height="150" minimized="0" channel="1" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="21922">
+				<waveblock start="0">
+					<simpleblockfile filename="e0808cc2.au" len="21922" min="-0.659032" max="0.707943" rms="0.155001"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+		<waveclip offset="0.92203066" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="226">
+				<waveblock start="0">
+					<simpleblockfile filename="e08087d0.au" len="226" min="-0.059647" max="0.067175" rms="0.015332"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+		<waveclip offset="0.92715537" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="23174">
+				<waveblock start="0">
+					<simpleblockfile filename="e08085d1.au" len="23174" min="-0.625283" max="0.66838" rms="0.15221"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+		<waveclip offset="0.54727891" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="14799">
+				<waveblock start="0">
+					<simpleblockfile filename="e0808765.au" len="14799" min="-0.740852" max="0.667829" rms="0.188321"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

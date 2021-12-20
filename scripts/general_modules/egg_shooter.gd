@@ -4,6 +4,7 @@ var egg_scene = preload("res://scenes/egg.tscn")
 onready var main_node = get_node("/root/Main")
 onready var eggs = get_node("/root/Main/Eggs")
 onready var powerups = get_node("/root/Main/Powerups")
+onready var feedback = get_node("/root/Main/Feedback")
 
 onready var timer = $Timer
 
@@ -72,4 +73,6 @@ func shoot_egg(type : String = ""):
 	
 	eggs.on_egg_created(e)
 	
+	GAudio.play_dynamic_sound(get_node(barrel_tip), "shoot")
+	feedback.create_for(get_node(barrel_tip), "New Egg!")
 	if anim_player: anim_player.play("Shot")
