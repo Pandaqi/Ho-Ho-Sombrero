@@ -12,16 +12,16 @@ func create_new_egg(options):
 	cannons.shuffle()
 	for i in range(cannons.size()):
 		rand_cannon = cannons[i]
-		if rand_cannon.is_busy(): continue
+		if rand_cannon.get_node("EggShooter").is_busy(): continue
 		break
 	
 	var no_option_available = not rand_cannon
 	if no_option_available: return
 	
-	rand_cannon.plan_shoot_egg(type)
+	rand_cannon.get_node("EggShooter").plan_shoot_egg(type)
 
 func get_eggs_planned():
 	var sum = 0
 	for c in cannons:
-		if c.has_egg_planned(): sum += 1
+		if c.get_node("EggShooter").has_egg_planned(): sum += 1
 	return sum

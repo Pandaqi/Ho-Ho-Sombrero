@@ -1,20 +1,5 @@
 extends Spatial
 
-var egg_scene = preload("res://scenes/egg.tscn")
-onready var main_node = get_node("/root/Main")
-onready var eggs = get_node("/root/Main/Eggs")
-onready var powerups = get_node("/root/Main/Powerups")
-
-onready var timer = $Timer
-
-const SHOOT_FORCE : float = 40.0
-const FORCE_BOUNDS : Dictionary = { 'min': 22.0, 'max': 60.0 }
-
-const DELAY_PLANNED_SHOT = { 'min': 1.5, 'max': 4.0 }
-
-export var fixed_type : String = "regular"
-export var planned_type : String = ""
-
 # all in RADIANS
 const ROTATE_SPEED : float = 0.25
 export var barrel_starting_rotation : float = 0.0
@@ -28,8 +13,6 @@ var swivel_dir : float = 0.0
 
 onready var barrel = $Barrel
 onready var barrel_tip = $Barrel/BarrelTip
-
-onready var anim_player = $AnimationPlayer
 
 onready var swivel_timer = $SwivelTimer
 const SWIVEL_TIME_BOUNDS = { 'min': 0.3, 'max': 0.8 }
@@ -52,45 +35,4 @@ func _physics_process(dt):
 	
 	rotation.y = clamp(rotation.y + swivel_dir*dt*SWIVEL_SPEED, swivel_starting_rotation - swivel_bounds, swivel_starting_rotation + swivel_bounds)
 
-func _on_Timer_timeout():
-	shoot_egg(planned_type)
-	planned_type = ''
 
-func plan_shoot_egg(type : String):
-	planned_type = type
-	
-	anim_player.play("Windup")
-	timer.wait_time = rand_range(DELAY_PLANNED_SHOT.min, DELAY_PLANNED_SHOT.max)
-	timer.start()
-
-func has_egg_planned():
-	return (planned_type != '')
-
-# TO DO: wait until shooting animation is finished
-func is_busy():
-	return (timer.time_left > 0)
-
-func shoot_egg(type : String = ""):
-	var e = egg_scene.instance()
-	
-	var shoot_speed = SHOOT_FORCE*powerups.get_egg_speed_modifier()
-	var rand_modifier = 0.6+randf()*0.6
-	shoot_speed = clamp(shoot_speed * rand_modifier, FORCE_BOUNDS.min, FORCE_BOUNDS.max)
-	
-	# NOTE: I modeled the cannon mesh the wrong way -.-
-	# That's why we use +X, instead of the default -Z
-	var shoot_vec = barrel.global_transform.basis.x*shoot_speed
-	var shoot_pos = barrel_tip.global_transform.origin
-	e.transform.origin = shoot_pos
-	e.transform = e.transform.looking_at(shoot_pos + shoot_vec, Vector3.UP)
-	e.apply_central_impulse(shoot_vec)
-	
-	e.get_node("Visuals").set_shape(powerups.get_cur_egg_shape())
-	main_node.add_child(e)
-	
-	if type == "": type = fixed_type
-	e.visuals.set_type(type)
-	
-	eggs.on_egg_created(e)
-	
-	anim_player.play("Shot")

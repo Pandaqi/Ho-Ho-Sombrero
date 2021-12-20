@@ -38,7 +38,7 @@ func determine_available_types():
 	var num_types = floor(rand_range(NUM_TYPES_BOUNDS.min, NUM_TYPES_BOUNDS.max))
 	available_types = []
 	
-	while available_types.size() < num_types:
+	while available_types.size() < num_types and all_types.size() > 0:
 		var new_type = all_types[0]
 		if GDict.eggs[new_type].has('id'):
 			var my_id = GDict.eggs[new_type].id
