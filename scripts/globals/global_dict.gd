@@ -40,7 +40,8 @@ var arenas = {
 	
 	"north_pole": {
 		"eggs_allowed": ["regular", "earthquake", "freeze", "icy_movement", "global_egg_faster", "global_egg_slower", "frisbee", "size_grow", "size_shrink", "point_bonus", "point_worthless"],
-		"frame": 3
+		"frame": 3,
+		"outline_growth": Vector3(10,0,10)
 	},
 	
 	"christmas_city": {
