@@ -40,6 +40,7 @@ func grab(tp : String):
 	hide_icon()
 	remove_module_if_exists()
 	undo_previous_effect()
+	remove_influence_sphere()
 	
 	type = tp
 	data = GDict.eggs[type]

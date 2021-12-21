@@ -22,8 +22,17 @@ export var drop_instead_of_shoot : bool = false
 export var barrel : NodePath # determines shooting direction
 export var barrel_tip : NodePath # determines shooting starting pos
 
+export var attract_area : NodePath
+var attract_radius : float = 0.0
+
+var disable_timer : Timer
+const ATTRACT_DISABLE_DUR : float = 2.5
+
 func _ready():
 	if has_node("AnimationPlayer"): anim_player = $AnimationPlayer
+	if has_node("DisableTimer"): disable_timer = $DisableTimer
+	if attract_area:
+		attract_radius = get_node(attract_area).get_node("CollisionShape").shape.radius
 
 func _on_Timer_timeout():
 	shoot_egg(planned_type)
@@ -46,6 +55,13 @@ func is_busy():
 
 func shoot_egg(type : String = ""):
 	var e = egg_scene.instance()
+	
+	if attract_area:
+		get_node(attract_area).get_node("CollisionShape").shape.radius = 0.0
+		get_node(attract_area).set_translation(Vector3.ZERO)
+		
+		disable_timer.wait_time = ATTRACT_DISABLE_DUR
+		disable_timer.start()
 	
 	var shoot_speed = SHOOT_FORCE*powerups.get_egg_speed_modifier()
 	var rand_modifier = 0.6+randf()*0.6
@@ -76,3 +92,6 @@ func shoot_egg(type : String = ""):
 	GAudio.play_dynamic_sound(get_node(barrel_tip), "shoot")
 	feedback.create_for(get_node(barrel_tip), "New Egg!")
 	if anim_player: anim_player.play("Shot")
+
+func _on_DisableTimer_timeout():
+	get_node(attract_area).get_node("CollisionShape").shape.radius = attract_radius

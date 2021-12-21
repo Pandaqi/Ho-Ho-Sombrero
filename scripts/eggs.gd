@@ -13,6 +13,25 @@ onready var cannons = get_node("../Cannons")
 onready var timer : Timer = $Timer
 
 var arena_data
+var quick_checks : bool = false
+
+func enable_quick_checks():
+	if quick_checks: return
+	
+	timer.stop()
+	timer.wait_time = 0.75
+	timer.start()
+	
+	quick_checks = true
+
+func disable_quick_checks():
+	if not quick_checks: return
+	
+	timer.stop()
+	timer.wait_time = EGG_CHECK_INTERVAL
+	timer.start()
+	
+	quick_checks = false
 
 func activate():
 	var num_players = GInput.get_player_count()
@@ -80,6 +99,10 @@ func check_new_eggs(only_essential = true):
 	var num_eggs = count_total_eggs()
 	var num_players = get_tree().get_nodes_in_group("Players").size()
 	var solo_mode = (GInput.get_player_count() == 1)
+	
+	if num_eggs < NUM_EGG_BOUNDS.min:
+		cannons.create_new_egg(available_types)
+		return
 	
 	if only_essential and num_eggs > NUM_EGG_BOUNDS.min: return
 	if num_eggs >= NUM_EGG_BOUNDS.max: return

@@ -31,10 +31,11 @@ func self_destruct():
 func initialize_solo_mode():
 	players.place_player(1, true)
 	
-	if G.get_current_arena() == "training": 
-		show_tutorial()
-	else:
-		hide_tutorial()
+	if G.get_current_arena() != "training": 
+		self_destruct()
+		return
+	
+	show_tutorial()
 
 func show_tutorial():
 	get_tree().paused = true

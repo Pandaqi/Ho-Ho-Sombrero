@@ -13,8 +13,7 @@ collision_layer = 2
 collision_mask = 2
 space_override = 4
 gravity_point = true
-gravity_vec = Vector3( 0, 1, 0 )
-gravity = 14.7
+gravity = -14.7
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 shape = SubResource( 27 )

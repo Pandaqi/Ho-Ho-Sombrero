@@ -1,6 +1,6 @@
 extends Spatial
 
-const DEF_GRAVITY = 9.8/10
+const DEF_GRAVITY = 9.8
 
 var point_factor : float = 1.0
 var egg_speed_modifier : float = 1.0
@@ -25,6 +25,9 @@ func spawn_powerup(pos : Vector3, type : String):
 
 func change_global_gravity(factor : float):
 	var val = DEF_GRAVITY * factor
+	
+	print("NEW GRAVITY VALUE")
+	print(val)
 	
 	PhysicsServer.area_set_param(get_world().get_space(), PhysicsServer.AREA_PARAM_GRAVITY, val)
 

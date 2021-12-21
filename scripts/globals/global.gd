@@ -15,12 +15,14 @@ func goto_menu():
 	mode = "menu"
 # warning-ignore:return_value_discarded
 	get_tree().change_scene_to(scenes.game)
+	GAudio.change_bg_stream("menu")
 
 func goto_game(arena_key : String):
 	arena = arena_key
 	mode = "game"
 # warning-ignore:return_value_discarded
 	get_tree().change_scene_to(scenes.game)
+	GAudio.change_bg_stream(arena_key)
 
 func in_game():
 	return (mode == "game")

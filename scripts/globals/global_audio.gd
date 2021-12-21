@@ -1,10 +1,18 @@
 extends Node
 
 
-var bg_audio # TO DO
+var bg_audio = null
 var bg_audio_player
 
 var active_players = []
+
+var bg_audio_preload = {
+	'menu': preload("res://assets/audio/themes/main_theme.mp3"),
+	'training': preload("res://assets/audio/themes/training_theme.mp3"), # TO DO
+	'forest': preload("res://assets/audio/themes/forest_theme.mp3"),
+	'desert': preload("res://assets/audio/themes/desert_theme.mp3"),
+	'north_pole': preload("res://assets/audio/themes/north_pole_theme.mp3") # TO DO
+}
 
 var audio_preload = {
 	"crack": [
@@ -43,10 +51,19 @@ func create_background_stream():
 	add_child(bg_audio_player)
 	
 	bg_audio_player.bus = "BG"
-	bg_audio_player.stream = bg_audio
+	
+	var stream = bg_audio
+	if not stream: stream = bg_audio_preload["menu"]
+	
+	bg_audio_player.stream = stream
 	bg_audio_player.play()
 	
 	bg_audio_player.pause_mode = Node.PAUSE_MODE_PROCESS
+
+func change_bg_stream(key : String):
+	bg_audio_player.stop()
+	bg_audio_player.stream = bg_audio_preload[key]
+	bg_audio_player.play()
 
 func pick_audio(key):
 	var wanted_audio = audio_preload[key]

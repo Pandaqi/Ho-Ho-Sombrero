@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/north_pole_theme.mp3-56445c0fa854cf65a80a7a41475668a4.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/themes/north_pole_theme.mp3"
+dest_files=[ "res://.import/north_pole_theme.mp3-56445c0fa854cf65a80a7a41475668a4.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

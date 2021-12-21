@@ -1,5 +1,6 @@
 extends Node
 
+onready var eggs = get_node("../Eggs")
 var cannons : Array = []
 
 func activate():
@@ -12,13 +13,18 @@ func create_new_egg(options):
 	cannons.shuffle()
 	for i in range(cannons.size()):
 		rand_cannon = cannons[i]
-		if rand_cannon.get_node("EggShooter").is_busy(): continue
+		if rand_cannon.get_node("EggShooter").is_busy(): 
+			rand_cannon = null
+			continue
 		break
 	
 	var no_option_available = not rand_cannon
-	if no_option_available: return
+	if no_option_available: 
+		eggs.enable_quick_checks()
+		return
 	
 	rand_cannon.get_node("EggShooter").plan_shoot_egg(type)
+	eggs.disable_quick_checks()
 
 func get_eggs_planned():
 	var sum = 0

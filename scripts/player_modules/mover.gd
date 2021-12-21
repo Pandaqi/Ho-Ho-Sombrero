@@ -39,6 +39,10 @@ func _integrate_forces(state):
 	if stunned: return
 	if not audio_player: return
 	
+	
+	var temp_slip_factor = slip_factor
+	if GDict.cfg.whole_level_is_ice: temp_slip_factor = 0.6
+	
 	var cur_vel = state.get_linear_velocity()
 	
 	if input_vec.length() > 0.03: 
@@ -55,24 +59,20 @@ func _integrate_forces(state):
 			rot_dir = 1
 
 		var rotate_speed = 70 * sqrt(angle)
+		rotate_speed *= (1.0 - temp_slip_factor)
+		
 		state.set_angular_velocity(-Vector3.UP*rotate_speed*rot_dir)
-
-#		var a = Quat(state.transform.basis)
-#		var target_pos = state.transform.origin + vec_3d
-#		var new_transform = state.transform.looking_at(target_pos, Vector3.UP)
-#
-#		var b = Quat(new_transform.basis)
-#		var c = a.slerp(b, 1.0 - (1.0/ROT_SPEED))
-#		state.transform.basis = Basis(c)
-#
-	var wanted_vel = -state.transform.basis.z*fps_dt*get_final_speed()
-	wanted_vel = cur_vel.linear_interpolate(wanted_vel, 1.0 - slip_factor)
 	
-	if input_vec.length() <= 0.03 and slip_factor <= 0.03:
+	var wanted_vel = -state.transform.basis.z*fps_dt*get_final_speed()
+	wanted_vel = cur_vel.linear_interpolate(wanted_vel, 1.0 - temp_slip_factor)
+	
+	if input_vec.length() <= 0.03 and temp_slip_factor <= 0.03:
 		if extra_speed < 0.03: 
 			wanted_vel = Vector3.ZERO
-		state.set_angular_velocity(Vector3.ZERO)
 		stop_moving()
+	
+	if input_vec.length() <= 0.03:
+		state.set_angular_velocity(Vector3.ZERO)
 	
 	if wanted_vel.length() >= 0.03 and not audio_player.is_playing():
 		audio_player.play()

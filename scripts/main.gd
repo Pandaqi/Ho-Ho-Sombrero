@@ -8,8 +8,10 @@ onready var solo_mode = $SoloMode
 onready var settings = $TechnicalSettings
 onready var powerups = $Powerups
 onready var feedback = $Feedback
+onready var cam = $Camera
 
 var map
+var arena_key : String
 var arenas = {
 	'menu': preload("res://scenes/arenas/menu.tscn"),
 	'training': preload("res://scenes/arenas/training.tscn"),
@@ -43,19 +45,29 @@ func _ready():
 		settings.queue_free()
 	
 	solo_mode.activate()
+	
+	finish_loading_arena()
 
 func load_arena():
 	var type = G.get_current_arena()
-	
+	arena_key = type
 	GDict.create_temporary_config_for_arena(type)
-	
-	var data = GDict.arenas[type]
-	if data.has('light_strength'):
-		$DirectionalLight.light_energy = data.light_strength
 	
 	map = arenas[type].instance()
 	map.name = "Map"
+	
 	add_child(map)
+
+func finish_loading_arena():
+	var data = GDict.arenas[arena_key]
+	if data.has('light_strength'):
+		$DirectionalLight.light_energy = data.light_strength
+	
+	if data.has('custom_light'):
+		$DirectionalLight.queue_free()
+	
+	if map.has_node("WorldEnvironment"):
+		cam.environment = map.get_node("WorldEnvironment")
 
 func on_player_logged_in(node):
 	GAudio.play_static_sound("button")

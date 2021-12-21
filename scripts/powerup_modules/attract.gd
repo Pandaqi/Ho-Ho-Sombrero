@@ -39,4 +39,4 @@ func _physics_process(dt):
 	var result = space_state.intersect_ray(start, end, exclude)
 	if not result: return
 	
-	area.global_transform.origin(result.position)
+	area.global_transform.origin = result.position

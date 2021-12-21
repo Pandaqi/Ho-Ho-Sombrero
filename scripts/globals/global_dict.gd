@@ -8,6 +8,7 @@ var base_cfg = {
 	"solo_mode_two_sombreros": true,
 	"delivery_points_attract_eggs": true,
 	"fixed_egg_shape": "egg",
+	"whole_level_is_ice": false
 }
 
 var cfg = {
@@ -41,7 +42,9 @@ var arenas = {
 	"north_pole": {
 		"eggs_allowed": ["regular", "earthquake", "freeze", "icy_movement", "global_egg_faster", "global_egg_slower", "frisbee", "size_grow", "size_shrink", "point_bonus", "point_worthless"],
 		"frame": 3,
-		"outline_growth": Vector3(10,0,10)
+		"outline_growth": Vector3(10,0,10),
+		"custom_light": true,
+		"whole_level_is_ice": true
 	},
 	
 	"christmas_city": {
