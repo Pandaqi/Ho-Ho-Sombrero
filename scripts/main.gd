@@ -17,7 +17,8 @@ var arenas = {
 	'training': preload("res://scenes/arenas/training.tscn"),
 	'forest': preload("res://scenes/arenas/forest.tscn"),
 	'desert': preload("res://scenes/arenas/desert.tscn"),
-	'north_pole': preload("res://scenes/arenas/north_pole.tscn")
+	'north_pole': preload("res://scenes/arenas/north_pole.tscn"),
+	"cuddly_clouds": preload("res://scenes/arenas/cuddly_clouds.tscn")
 }
 
 func _init():

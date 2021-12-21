@@ -106,7 +106,7 @@ func create_slanted_joint(state):
 	state.transform.origin = player_pos + DEF_SOMBRERO_POS
 	
 	# Rotate the sombrero BEFORE adding, so the joint sticks it in that position
-	state.transform.basis = state.transform.rotated(Vector3.RIGHT, -0.2*PI).basis
+	state.transform.basis = Transform.IDENTITY.rotated(Vector3.RIGHT, -0.2*PI).basis
 	
 	settling_joint = true
 	

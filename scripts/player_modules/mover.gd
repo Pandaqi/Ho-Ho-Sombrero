@@ -19,8 +19,10 @@ var extra_speed : float = 0.0
 var extra_force : Vector3 = Vector3.ZERO
 var last_known_input : Vector2
 
-var MOVE_AUDIO_VOLUME : float = -6.0
+var MOVE_AUDIO_VOLUME : float = -3.0
 var audio_player = null
+
+const SLIP_DAMPING : float = 0.00001
 
 func _ready():
 	create_move_audio()
@@ -39,9 +41,8 @@ func _integrate_forces(state):
 	if stunned: return
 	if not audio_player: return
 	
-	
 	var temp_slip_factor = slip_factor
-	if GDict.cfg.whole_level_is_ice: temp_slip_factor = 0.6
+	if GDict.cfg.whole_level_is_ice: temp_slip_factor = 0.7
 	
 	var cur_vel = state.get_linear_velocity()
 	
@@ -59,21 +60,31 @@ func _integrate_forces(state):
 			rot_dir = 1
 
 		var rotate_speed = 70 * sqrt(angle)
-		rotate_speed *= (1.0 - temp_slip_factor)
+		rotate_speed *= 1.0 - temp_slip_factor
 		
 		state.set_angular_velocity(-Vector3.UP*rotate_speed*rot_dir)
 	
-	var wanted_vel = -state.transform.basis.z*fps_dt*get_final_speed()
-	wanted_vel = cur_vel.linear_interpolate(wanted_vel, 1.0 - temp_slip_factor)
+	var cur_speed = cur_vel.length()
+	var wanted_speed = get_final_speed()*fps_dt
+	var wanted_vel = -state.transform.basis.z
 	
-	if input_vec.length() <= 0.03 and temp_slip_factor <= 0.03:
-		if extra_speed < 0.03: 
-			wanted_vel = Vector3.ZERO
-		stop_moving()
+	if cur_vel.length() >= 0.03 and wanted_vel >= 0.03:
+		wanted_vel = cur_vel.normalized().slerp(wanted_vel.normalized(), 1.0 - temp_slip_factor)
+	
+	if input_vec.length() <= 0.03:
+		if temp_slip_factor > 0.03:
+			wanted_speed = cur_speed * (1.0 - SLIP_DAMPING*fps_dt)
+		elif extra_speed > 0.03:
+			pass
+		else:
+			wanted_speed = 0.0
+			stop_moving()
+	
+	wanted_vel *= wanted_speed
 	
 	if input_vec.length() <= 0.03:
 		state.set_angular_velocity(Vector3.ZERO)
-	
+
 	if wanted_vel.length() >= 0.03 and not audio_player.is_playing():
 		audio_player.play()
 	

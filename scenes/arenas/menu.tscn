@@ -167,7 +167,7 @@ material/0 = null
 [node name="Tutorial" parent="MenuSelector3" instance=ExtResource( 7 )]
 
 [node name="MenuSelector4" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, 12.9116 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 1, -5.0884 )
 script = ExtResource( 5 )
 arena = "north_pole"
 
@@ -203,6 +203,43 @@ material/0 = null
 
 [node name="Tutorial" parent="MenuSelector4" instance=ExtResource( 7 )]
 
+[node name="MenuSelector5" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 12.9116 )
+script = ExtResource( 5 )
+arena = "cuddly_clouds"
+
+[node name="StartArea" type="Area" parent="MenuSelector5"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="MenuSelector5/StartArea"]
+shape = SubResource( 1 )
+
+[node name="HoverArea" type="Area" parent="MenuSelector5"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="MenuSelector5/HoverArea"]
+shape = SubResource( 2 )
+
+[node name="Model" type="StaticBody" parent="MenuSelector5"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.215696, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="MenuSelector5/Model"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 14 )
+
+[node name="MeshInstance" type="MeshInstance" parent="MenuSelector5/Model"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+material_override = ExtResource( 2 )
+mesh = SubResource( 15 )
+skeleton = NodePath("")
+material/0 = null
+
+[node name="Tween" type="Tween" parent="MenuSelector5"]
+
+[node name="Tutorial" parent="MenuSelector5" instance=ExtResource( 7 )]
+
 [node name="Outline" parent="." instance=ExtResource( 6 )]
 
 [connection signal="body_entered" from="MenuSelector/StartArea" to="MenuSelector" method="_on_StartArea_body_entered"]
@@ -221,3 +258,7 @@ material/0 = null
 [connection signal="body_exited" from="MenuSelector4/StartArea" to="MenuSelector4" method="_on_StartArea_body_exited"]
 [connection signal="body_entered" from="MenuSelector4/HoverArea" to="MenuSelector4" method="_on_HoverArea_body_entered"]
 [connection signal="body_exited" from="MenuSelector4/HoverArea" to="MenuSelector4" method="_on_HoverArea_body_exited"]
+[connection signal="body_entered" from="MenuSelector5/StartArea" to="MenuSelector5" method="_on_StartArea_body_entered"]
+[connection signal="body_exited" from="MenuSelector5/StartArea" to="MenuSelector5" method="_on_StartArea_body_exited"]
+[connection signal="body_entered" from="MenuSelector5/HoverArea" to="MenuSelector5" method="_on_HoverArea_body_entered"]
+[connection signal="body_exited" from="MenuSelector5/HoverArea" to="MenuSelector5" method="_on_HoverArea_body_exited"]

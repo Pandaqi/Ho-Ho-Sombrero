@@ -17,6 +17,7 @@ func get_dimensions():
 	return Vector3(dims.x, 0, dims.y)
 
 func _ready():
+	set_visible(true)
 	drape_mesh_over_terrain()
 	create_mask()
 

@@ -52,5 +52,14 @@ func change_egg_shape(type : String = "egg"):
 		cur_egg_shape = "egg"
 		return
 	
+	# opposite of current type? it toggles back to regular
+	if cur_egg_shape == "egg_big" and type == "egg_small":
+		cur_egg_shape = "egg"
+		return
+	
+	if cur_egg_shape == "egg_small" and type == "egg_big":
+		cur_egg_shape = "egg"
+		return
+	
 	# otherwise we just set it to what we received
 	cur_egg_shape = type

@@ -44,7 +44,8 @@ var arenas = {
 		"frame": 3,
 		"outline_growth": Vector3(10,0,10),
 		"custom_light": true,
-		"whole_level_is_ice": true
+		"whole_level_is_ice": true,
+		"player_lights": true
 	},
 	
 	"christmas_city": {
@@ -52,7 +53,9 @@ var arenas = {
 	},
 	
 	"cuddly_clouds": {
-		"frame": 5
+		"frame": 5,
+		"outline_growth": Vector3(5,0,5),
+		"custom_light": true
 	},
 	
 	"easter_island": {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/arenas/models/santa_hut.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/map_outline.tscn" type="PackedScene" id=2]
@@ -11,7 +11,10 @@
 [ext_resource path="res://scenes/egg_cannon.tscn" type="PackedScene" id=9]
 
 [sub_resource type="BoxShape" id=15]
-extents = Vector3( 45.9409, 29.9551, 1 )
+extents = Vector3( 62.6906, 47.7265, 1 )
+
+[sub_resource type="BoxShape" id=20]
+extents = Vector3( 16.0908, 47.7265, 1 )
 
 [sub_resource type="SpatialMaterial" id=16]
 flags_transparent = true
@@ -43,10 +46,28 @@ data = {
 }
 
 [node name="Walls" type="StaticBody" parent="." groups=["Walls"]]
+collision_layer = 9
+collision_mask = 9
 
 [node name="CollisionShape" type="CollisionShape" parent="Walls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.511, 37.8708 )
 shape = SubResource( 15 )
+
+[node name="CornerAngle" type="CollisionShape" parent="Walls"]
+transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -46.4801, 19.511, 32.1109 )
+shape = SubResource( 20 )
+
+[node name="CornerAngle2" type="CollisionShape" parent="Walls"]
+transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 48.1313, 19.511, 32.1109 )
+shape = SubResource( 20 )
+
+[node name="CornerAngle3" type="CollisionShape" parent="Walls"]
+transform = Transform( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 51.1485, 19.511, -31.8891 )
+shape = SubResource( 20 )
+
+[node name="CornerAngle4" type="CollisionShape" parent="Walls"]
+transform = Transform( -0.70618, 0, -0.708032, 0, 1, 0, 0.708032, 0, -0.70618, -46.9145, 19.511, -30.792 )
+shape = SubResource( 20 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="Walls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.511, -37.8867 )
@@ -61,7 +82,7 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -51.794
 shape = SubResource( 15 )
 
 [node name="Ceiling" type="CollisionShape" parent="Walls"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 40, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 48.215, 0 )
 shape = SubResource( 15 )
 
 [node name="StartingPositions" type="Spatial" parent="."]
@@ -243,7 +264,7 @@ transform = Transform( -0.439465, -0.285909, -0.851544, -0.181712, 0.956689, -0.
 [node name="BarrenTree22" parent="pinetree" instance=ExtResource( 7 )]
 transform = Transform( -0.699481, -0.0718251, 0.711033, -0.0372, 0.997247, 0.0641415, -0.713683, 0.0184154, -0.700227, -26.0777, 5.6042, 49.0541 )
 
-[node name="IcePatch" type="MeshInstance" parent="." groups=["Breakers"]]
+[node name="IcePatch" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26, -1.01044, 15.8028 )
 mesh = SubResource( 17 )
 material/0 = null
@@ -253,7 +274,7 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="IcePatch/StaticBody"]
 shape = SubResource( 18 )
 
-[node name="IcePatch2" type="MeshInstance" parent="." groups=["Breakers"]]
+[node name="IcePatch2" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, -1.01044, 0.802805 )
 mesh = SubResource( 17 )
 material/0 = null

@@ -48,6 +48,7 @@ func hide_tutorial():
 	tutorial_container.set_visible(false)
 	
 	get_tree().paused = false
+	self_destruct()
 
 func _input(ev):
 	if not input_enabled: return

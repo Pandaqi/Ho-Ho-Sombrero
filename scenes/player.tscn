@@ -327,6 +327,10 @@ cast_to = Vector3( 0, -0.4, 0 )
 
 [node name="Wrapper" parent="Player" instance=ExtResource( 1 )]
 
+[node name="OmniLight" type="OmniLight" parent="Player"]
+shadow_enabled = true
+omni_range = 9.24147
+
 [node name="Sombrero" type="RigidBody" parent="." groups=["Sombreros"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.437041, 0 )
 collision_layer = 2

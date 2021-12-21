@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/trees/cactus_properly.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/map_outline.tscn" type="PackedScene" id=2]
@@ -8,6 +8,9 @@
 
 [sub_resource type="BoxShape" id=15]
 extents = Vector3( 45.9409, 29.9551, 1 )
+
+[sub_resource type="BoxShape" id=16]
+extents = Vector3( 8.46279, 29.9551, 1 )
 
 [node name="Map" type="Spatial"]
 script = ExtResource( 4 )
@@ -27,6 +30,22 @@ data = {
 [node name="CollisionShape" type="CollisionShape" parent="Walls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.511, 28.8708 )
 shape = SubResource( 15 )
+
+[node name="CornerAngle" type="CollisionShape" parent="Walls"]
+transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 42.7132, 19.511, 25.7606 )
+shape = SubResource( 16 )
+
+[node name="CornerAngle2" type="CollisionShape" parent="Walls"]
+transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -42.6215, 19.511, 25.7606 )
+shape = SubResource( 16 )
+
+[node name="CornerAngle3" type="CollisionShape" parent="Walls"]
+transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -42.6215, 19.511, -25.8765 )
+shape = SubResource( 16 )
+
+[node name="CornerAngle4" type="CollisionShape" parent="Walls"]
+transform = Transform( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 41.6009, 19.511, -25.8765 )
+shape = SubResource( 16 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="Walls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.511, -28.8867 )
