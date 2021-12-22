@@ -11,8 +11,8 @@ var bg_audio_preload = {
 	'training': preload("res://assets/audio/themes/training_theme.mp3"),
 	'forest': preload("res://assets/audio/themes/forest_theme.mp3"),
 	'desert': preload("res://assets/audio/themes/desert_theme.mp3"),
-	'north_pole': preload("res://assets/audio/themes/north_pole_theme.mp3"), # TO DO
-	'cuddly_clouds': preload("res://assets/audio/themes/cuddly_clouds_theme.mp3") # TO DO
+	'north_pole': preload("res://assets/audio/themes/north_pole_theme.mp3"),
+	'cuddly_clouds': preload("res://assets/audio/themes/cuddly_clouds_theme.mp3")
 }
 
 var audio_preload = {

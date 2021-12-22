@@ -30,7 +30,7 @@ func on_egg_broken(node):
 	
 	check_game_over()
 
-func on_egg_delivered(node, points : int = 0):
+func on_egg_delivered(node, points : int = 1):
 	var final_points = points * powerups.get_point_factor() * node.get_point_factor()
 	final_points = int(ceil(final_points))
 	

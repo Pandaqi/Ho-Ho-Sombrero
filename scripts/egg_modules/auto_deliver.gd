@@ -24,7 +24,7 @@ func _physics_process(dt):
 	progress.get_node("TextureProgress").set_value(time_left_as_ratio)
 
 func _on_Timer_timeout():
-	body.status.set_delivered()
+	body.status.set_delivered(1)
 
 func on_death():
 	progress.queue_free()

@@ -19,7 +19,7 @@ var extra_speed : float = 0.0
 var extra_force : Vector3 = Vector3.ZERO
 var last_known_input : Vector2
 
-var MOVE_AUDIO_VOLUME : float = -3.0
+var MOVE_AUDIO_VOLUME : float = -4.5
 var audio_player = null
 
 const SLIP_DAMPING : float = 0.00001
@@ -72,7 +72,7 @@ func _integrate_forces(state):
 	var vel_norm = cur_vel_without_y.normalized()
 	var wanted_norm = wanted_vel.normalized()
 	
-	if vel_norm.length() >= 0.03 and wanted_norm.length() >= 0.03:
+	if vel_norm.length() == 1 and wanted_norm.length() == 1:
 		wanted_vel = vel_norm.slerp(wanted_norm, 1.0 - temp_slip_factor)
 	
 	if input_vec.length() <= 0.03:

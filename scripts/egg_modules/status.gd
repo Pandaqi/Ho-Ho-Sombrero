@@ -8,7 +8,7 @@ onready var bouncer = get_node("../Bouncer")
 
 var delivered : bool = false
 
-func set_delivered(points : int = 0):
+func set_delivered(points : int = 1):
 	delivered = true
 	
 	body.collision_layer = 16
