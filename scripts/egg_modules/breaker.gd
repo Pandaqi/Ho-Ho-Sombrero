@@ -18,12 +18,15 @@ var epsilon = 0.05
 func _integrate_forces(state):
 	if status.delivered: return
 	
+	var break_limit = GDict.cfg.num_bounces_before_break
 	for i in range(state.get_contact_count()):
 		var obj = state.get_contact_collider_object(i)
 		if not obj.is_in_group("Breakers"): continue
 		
 		var normal = state.get_contact_local_normal(i)
-		if normal.y < (0 + epsilon): return
+		if normal.y < (0 + epsilon): continue
+		
+		if break_limit > 1 and body.bouncer.num_bounces_on_ground < break_limit: continue
 		
 		destroy_myself()
 		break

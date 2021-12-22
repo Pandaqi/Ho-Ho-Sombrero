@@ -12,8 +12,9 @@ keep_on_ground = true
 [node name="Area" type="Area" parent="."]
 collision_layer = 6
 collision_mask = 6
-space_override = 4
+space_override = 3
 gravity_vec = Vector3( 0, 1, 0 )
+gravity = 19.6
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 shape = SubResource( 27 )

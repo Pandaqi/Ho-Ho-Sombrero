@@ -13,7 +13,7 @@ collision_layer = 2
 collision_mask = 2
 space_override = 4
 gravity_point = true
-gravity = 14.7
+gravity = 36.75
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 shape = SubResource( 27 )

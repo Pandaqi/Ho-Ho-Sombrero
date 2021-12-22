@@ -171,5 +171,9 @@ anims/RESET = SubResource( 29 )
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="OmniLight" type="OmniLight" parent="."]
+shadow_enabled = true
+omni_range = 5.18639
+
 [connection signal="body_entered" from="Powerup/Area" to="." method="_on_Area_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

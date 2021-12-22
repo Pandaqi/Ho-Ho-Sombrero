@@ -159,4 +159,6 @@ func _physics_process(dt):
 	var real_pos = body.transform.origin
 	var offset = ICON_Y_OFFSET
 	icon_button.set_position(cam.unproject_position(real_pos) + offset)
-	influence_sphere.global_transform.origin = body.global_transform.origin
+	
+	if cur_module:
+		influence_sphere.global_transform.origin = cur_module.get_node("Area").global_transform.origin

@@ -45,6 +45,7 @@ func _integrate_forces(state):
 	if GDict.cfg.whole_level_is_ice: temp_slip_factor = 0.7
 	
 	var cur_vel = state.get_linear_velocity()
+	var cur_vel_without_y = Vector3(cur_vel.x, 0, cur_vel.z)
 	
 	if input_vec.length() > 0.03: 
 		var vec_3d = Vector3(input_vec.x, 0, input_vec.y)
@@ -64,12 +65,15 @@ func _integrate_forces(state):
 		
 		state.set_angular_velocity(-Vector3.UP*rotate_speed*rot_dir)
 	
-	var cur_speed = cur_vel.length()
+	var cur_speed = cur_vel_without_y.length()
 	var wanted_speed = get_final_speed()*fps_dt
 	var wanted_vel = -state.transform.basis.z
 	
-	if cur_vel.length() >= 0.03 and wanted_vel >= 0.03:
-		wanted_vel = cur_vel.normalized().slerp(wanted_vel.normalized(), 1.0 - temp_slip_factor)
+	var vel_norm = cur_vel_without_y.normalized()
+	var wanted_norm = wanted_vel.normalized()
+	
+	if vel_norm.length() >= 0.03 and wanted_norm.length() >= 0.03:
+		wanted_vel = vel_norm.slerp(wanted_norm, 1.0 - temp_slip_factor)
 	
 	if input_vec.length() <= 0.03:
 		if temp_slip_factor > 0.03:

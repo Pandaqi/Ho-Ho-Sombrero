@@ -7,6 +7,7 @@ const BOUNCE_POWER : float = 6.0
 var epsilon = 0.1
 var active : bool = true
 var players_touched = []
+var num_bounces_on_ground : int = 0
 
 onready var body = get_parent()
 onready var powerups = get_node("/root/Main/Powerups")
@@ -19,11 +20,18 @@ func _integrate_forces(state):
 		var normal = state.get_contact_local_normal(i)
 		var original_normal = normal
 		if obj.is_in_group("NormalBouncer"): continue
-
+	
+		if obj.is_in_group("Floor"): 
+			num_bounces_on_ground += 1
+		
+		# to prevent eggs getting stuck under the sombrero and YEETING us upwards
+		if obj.is_in_group("Sombreros") or obj.is_in_group("Players"):
+			if normal.y < 0: continue
+		
 		if normal.y < 0: normal.y += 1.0
 		normal.y *= UP_INFLUENCE
 		
-		# TO DO: Make sure it bounces back quite quickly from walls? How?
+		# bouncing from the walls pushes us more into the center
 		if obj.is_in_group("Walls"):
 			if abs(normal.x) > abs(normal.z):
 				normal.x *= WALL_INFLUENCE

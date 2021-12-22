@@ -7,6 +7,9 @@ onready var timer = $Timer
 onready var anim_player = $AnimationPlayer
 
 func _ready():
+	if not GDict.cfg.egg_lights:
+		$OmniLight.queue_free()
+	
 	timer.wait_time = POWERUP_FADE_TIME
 	timer.start()
 

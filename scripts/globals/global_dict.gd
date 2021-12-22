@@ -8,7 +8,12 @@ var base_cfg = {
 	"solo_mode_two_sombreros": true,
 	"delivery_points_attract_eggs": true,
 	"fixed_egg_shape": "egg",
-	"whole_level_is_ice": false
+	"whole_level_is_ice": false,
+	"num_bounces_before_break": 1,
+	"custom_light": false,
+	"player_lights": false,
+	"egg_lights": false,
+	"show_map_outline": true,
 }
 
 var cfg = {
@@ -17,7 +22,8 @@ var cfg = {
 
 var arenas = {
 	"menu": {
-		"frame": -1
+		"frame": -1,
+		"show_map_outline": false
 	},
 	
 	"training": {
@@ -45,7 +51,8 @@ var arenas = {
 		"outline_growth": Vector3(10,0,10),
 		"custom_light": true,
 		"whole_level_is_ice": true,
-		"player_lights": true
+		"player_lights": true,
+		"egg_lights": true,
 	},
 	
 	"christmas_city": {
@@ -55,7 +62,8 @@ var arenas = {
 	"cuddly_clouds": {
 		"frame": 5,
 		"outline_growth": Vector3(5,0,5),
-		"custom_light": true
+		"custom_light": true,
+		"num_bounces_before_break": 8
 	},
 	
 	"easter_island": {
@@ -111,6 +119,8 @@ var eggs = {
 
 func create_temporary_config_for_arena(arena : String):
 	var data = arenas[arena]
+	
+	cfg = {}
 	for key in base_cfg:
 		var val = base_cfg[key]
 		if data.has(key): val = data[key]

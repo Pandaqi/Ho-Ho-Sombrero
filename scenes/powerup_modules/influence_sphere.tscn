@@ -5,10 +5,13 @@ code = "shader_type spatial;
 
 uniform sampler2D noise_tex;
 
+uniform float max_alpha = 0.85;
+uniform float coverage = 0.5;
+
 void fragment() {
 	vec2 uv = UV + vec2(sin(TIME), cos(TIME+UV.x))*0.5;
 	ALBEDO = vec3(0.0, 1.0, 1.0);
-	ALPHA = smoothstep(0.0, 1.0, (texture(noise_tex, uv).r-0.6)*10.0) * 0.5 * abs(sin(TIME));
+	ALPHA = smoothstep(0.0, 1.0, (texture(noise_tex, uv).r-(1.0-coverage))*10.0) * max_alpha * abs(sin(TIME));
 }"
 
 [sub_resource type="OpenSimplexNoise" id=67]
@@ -19,6 +22,8 @@ noise = SubResource( 67 )
 
 [sub_resource type="ShaderMaterial" id=66]
 shader = SubResource( 65 )
+shader_param/max_alpha = 0.85
+shader_param/coverage = 0.5
 shader_param/noise_tex = SubResource( 68 )
 
 [sub_resource type="SphereMesh" id=64]

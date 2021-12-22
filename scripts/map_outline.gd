@@ -17,7 +17,7 @@ func get_dimensions():
 	return Vector3(dims.x, 0, dims.y)
 
 func _ready():
-	set_visible(true)
+	set_visible(GDict.cfg.show_map_outline)
 	drape_mesh_over_terrain()
 	create_mask()
 

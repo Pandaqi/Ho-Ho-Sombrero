@@ -15,7 +15,7 @@ func _ready():
 		wrapper = wrapper_scene.instance()
 		add_child(wrapper)
 	
-	if not GDict.cfg.has('player_lights'):
+	if not GDict.cfg.player_lights:
 		$OmniLight.queue_free()
 
 func _integrate_forces(state):

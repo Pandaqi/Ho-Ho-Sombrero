@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://materials/general_material.tres" type="Material" id=1]
 
@@ -62,6 +62,62 @@ surfaces/0 = {
 "vertex_count": 239
 }
 
+[sub_resource type="Animation" id=28]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("WingL:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 22.5, -90, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WingR:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -22.5, -90, 180 ) ]
+}
+
+[sub_resource type="Animation" id=29]
+resource_name = "WingFlap"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("WingL:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 22.5, -90, 0 ), Vector3( -22.5, -90, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WingR:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -22.5, -90, 180 ), Vector3( 22.5, -90, 180 ) ]
+}
+
 [node name="HugeStork" type="Spatial"]
 transform = Transform( 2, 0, -3.4641, 0, 4, 0, 3.4641, 0, 2, -46.6277, 8, 15.1629 )
 
@@ -91,11 +147,16 @@ mesh = SubResource( 27 )
 material/0 = null
 
 [node name="WingL" type="MeshInstance" parent="."]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.668582, 1.89873, 0.549523 )
+transform = Transform( -4.37114e-08, -0.382683, -0.92388, 0, 0.92388, -0.382683, 1, -1.67276e-08, -4.03841e-08, -0.668582, 1.89873, 0.549523 )
 mesh = SubResource( 4 )
 material/0 = null
 
 [node name="WingR" type="MeshInstance" parent="."]
-transform = Transform( -4.37114e-08, -3.82137e-15, 1, -8.74228e-08, 1, 0, 1, 8.74228e-08, 4.37114e-08, 0.494666, 1.89873, 0.549523 )
+transform = Transform( -1.02561e-08, 0.382683, 0.92388, 8.07681e-08, 0.92388, -0.382683, 1, -7.06952e-08, 4.03841e-08, 0.494666, 1.89873, 0.549523 )
 mesh = SubResource( 4 )
 material/0 = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "WingFlap"
+anims/RESET = SubResource( 28 )
+anims/WingFlap = SubResource( 29 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://materials/general_material.tres" type="Material" id=1]
 [ext_resource path="res://scenes/map_outline.tscn" type="PackedScene" id=2]
@@ -6,10 +6,14 @@
 [ext_resource path="res://scripts/map.gd" type="Script" id=4]
 [ext_resource path="res://scenes/arenas/models/huge_stork.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/arenas/models/satchel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scripts/arenas/huge_stork_cont.gd" type="Script" id=7]
 [ext_resource path="res://scenes/egg_cannon.tscn" type="PackedScene" id=9]
 
 [sub_resource type="BoxShape" id=15]
 extents = Vector3( 53.7017, 37.1554, 1 )
+
+[sub_resource type="BoxShape" id=21]
+extents = Vector3( 12.6285, 37.1554, 1 )
 
 [sub_resource type="Environment" id=19]
 background_mode = 1
@@ -43,19 +47,35 @@ script = ExtResource( 4 )
 [node name="Walls" type="StaticBody" parent="." groups=["Walls"]]
 
 [node name="CollisionShape" type="CollisionShape" parent="Walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.511, 29.8348 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.511, 27.8293 )
 shape = SubResource( 15 )
 
+[node name="CornerHelper" type="CollisionShape" parent="Walls"]
+transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 40.0697, 19.511, 27.8293 )
+shape = SubResource( 21 )
+
+[node name="CornerHelper2" type="CollisionShape" parent="Walls"]
+transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -44.9303, 19.511, 27.8293 )
+shape = SubResource( 21 )
+
+[node name="CornerHelper3" type="CollisionShape" parent="Walls"]
+transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -44.9303, 19.511, -29.1707 )
+shape = SubResource( 21 )
+
+[node name="CornerHelper4" type="CollisionShape" parent="Walls"]
+transform = Transform( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 42.0697, 19.511, -29.1707 )
+shape = SubResource( 21 )
+
 [node name="CollisionShape2" type="CollisionShape" parent="Walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.511, -36.6949 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.511, -33.1967 )
 shape = SubResource( 15 )
 
 [node name="CollisionShape3" type="CollisionShape" parent="Walls"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 49.1653, 19.511, -0.678744 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 46.2053, 19.511, -0.678744 )
 shape = SubResource( 15 )
 
 [node name="CollisionShape4" type="CollisionShape" parent="Walls"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -49.6189, 19.511, -0.678744 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -48.0044, 19.511, -0.678744 )
 shape = SubResource( 15 )
 
 [node name="Ceiling" type="CollisionShape" parent="Walls"]
@@ -94,7 +114,7 @@ mesh = SubResource( 1 )
 skeleton = NodePath("")
 material/0 = null
 
-[node name="StaticBody" type="StaticBody" parent="BigCloud"]
+[node name="StaticBody" type="StaticBody" parent="BigCloud" groups=["Breakers", "Floor"]]
 collision_layer = 9
 collision_mask = 9
 
@@ -137,12 +157,41 @@ transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 5
 [node name="TinyCloud6" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1.78814e-07, 0, -1, 0, 1, 0, 1, 0, 1.78814e-07, 4.34272, 17, 41.3832 )
 
-[node name="Satchel" parent="." instance=ExtResource( 6 )]
+[node name="HugeStorkCont" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.86278, 0 )
+script = ExtResource( 7 )
 
-[node name="HugeStork" parent="." instance=ExtResource( 5 )]
+[node name="Satchel" parent="HugeStorkCont" instance=ExtResource( 6 )]
 
-[node name="Satchel2" parent="." instance=ExtResource( 6 )]
-transform = Transform( -0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 42.1682, 12.0874, -7.13 )
+[node name="HugeStork" parent="HugeStorkCont" instance=ExtResource( 5 )]
 
-[node name="HugeStork2" parent="." instance=ExtResource( 5 )]
+[node name="Tween" type="Tween" parent="HugeStorkCont"]
+
+[node name="HugeStorkCont2" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.25086, 0 )
+script = ExtResource( 7 )
+
+[node name="Satchel2" parent="HugeStorkCont2" instance=ExtResource( 6 )]
+transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 42.1682, 12.0874, -7.13 )
+
+[node name="HugeStork2" parent="HugeStorkCont2" instance=ExtResource( 5 )]
 transform = Transform( -2, 0, 3.4641, 0, 4, 0, -3.4641, 0, -2, 49.2117, 7.31435, -11.2804 )
+
+[node name="Tween" type="Tween" parent="HugeStorkCont2"]
+
+[node name="HugeStorkCont3" type="Spatial" parent="."]
+transform = Transform( 0.483512, 0, 0.875338, 0, 1, 0, -0.875338, 0, 0.483512, -12.8211, 10.6699, 18.4658 )
+script = ExtResource( 7 )
+
+[node name="Satchel2" parent="HugeStorkCont3" instance=ExtResource( 6 )]
+transform = Transform( 0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 42.1682, 12.0874, -7.13 )
+point_value = 2
+
+[node name="HugeStork2" parent="HugeStorkCont3" instance=ExtResource( 5 )]
+transform = Transform( -2, 0, 3.4641, 0, 4, 0, -3.4641, 0, -2, 49.2117, 7.31435, -11.2804 )
+
+[node name="Tween" type="Tween" parent="HugeStorkCont3"]
+
+[connection signal="tween_all_completed" from="HugeStorkCont/Tween" to="HugeStorkCont" method="_on_Tween_tween_all_completed"]
+[connection signal="tween_all_completed" from="HugeStorkCont2/Tween" to="HugeStorkCont2" method="_on_Tween_tween_all_completed"]
+[connection signal="tween_all_completed" from="HugeStorkCont3/Tween" to="HugeStorkCont3" method="_on_Tween_tween_all_completed"]

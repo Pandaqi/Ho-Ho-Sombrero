@@ -1,6 +1,6 @@
 extends Node
 
-const TIME_UNTIL_AUTO_DELIVERY : float = 20.0
+const TIME_UNTIL_AUTO_DELIVERY : float = 14.0
 onready var timer = $Timer
 onready var progress = $Progress
 onready var body = get_parent()

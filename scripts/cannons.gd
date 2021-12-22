@@ -9,6 +9,9 @@ func activate():
 func create_new_egg(options):
 	var type = options[randi() % options.size()]
 	
+	# DEBUGGING:
+	type = "levitate"
+	
 	var rand_cannon = null
 	cannons.shuffle()
 	for i in range(cannons.size()):
