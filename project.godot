@@ -10,9 +10,11 @@ config_version=4
 
 [application]
 
-config/name="In Eggcelent Condition"
+config/name="Ho Ho Sombrero"
 run/main_scene="res://Main.tscn"
 config/icon="res://assets/marketing/favicon.png"
+config/macos_native_icon="res://assets/marketing/favicon.icns"
+config/windows_native_icon="res://assets/marketing/favicon.ico"
 
 [autoload]
 

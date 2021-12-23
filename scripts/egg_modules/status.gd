@@ -22,5 +22,5 @@ func set_delivered(points : int = 1):
 	
 	if body.auto_deliver: 
 		body.auto_deliver.on_death()
-	
+
 	state.on_egg_delivered(body, points)

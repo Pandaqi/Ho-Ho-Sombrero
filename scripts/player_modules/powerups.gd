@@ -160,5 +160,5 @@ func _physics_process(dt):
 	var offset = ICON_Y_OFFSET
 	icon_button.set_position(cam.unproject_position(real_pos) + offset)
 	
-	if cur_module:
+	if cur_module and cur_module.has_node("Area"):
 		influence_sphere.global_transform.origin = cur_module.get_node("Area").global_transform.origin

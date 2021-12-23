@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://scenes/general_modules/wrapper.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/player_modules/input.gd" type="Script" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://scripts/sombrero_modules/sombrero.gd" type="Script" id=12]
 [ext_resource path="res://scripts/sombrero_modules/visuals.gd" type="Script" id=13]
 [ext_resource path="res://scenes/powerup_modules/influence_sphere.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scripts/player_modules/particles.gd" type="Script" id=15]
+[ext_resource path="res://scenes/particles/puff_particles.tscn" type="PackedScene" id=16]
 
 [sub_resource type="PhysicsMaterial" id=6]
 bounce = 0.02
@@ -331,6 +333,11 @@ cast_to = Vector3( 0, -0.4, 0 )
 shadow_enabled = true
 omni_range = 9.24147
 
+[node name="Particles" type="Spatial" parent="Player"]
+script = ExtResource( 15 )
+
+[node name="Particles" parent="Player/Particles" instance=ExtResource( 16 )]
+
 [node name="Sombrero" type="RigidBody" parent="." groups=["Sombreros"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.437041, 0 )
 collision_layer = 2
@@ -403,6 +410,8 @@ mesh = SubResource( 1 )
 skeleton = NodePath("")
 material/0 = null
 
+[connection signal="move_start" from="Player/Mover" to="Player/Particles" method="_on_Mover_move_start"]
+[connection signal="move_stop" from="Player/Mover" to="Player/Particles" method="_on_Mover_move_stop"]
 [connection signal="timeout" from="Player/Mover/StunTimer" to="Player/Mover" method="_on_StunTimer_timeout"]
 [connection signal="button_press" from="Player/Input" to="Player/Mover" method="_on_Input_button_press"]
 [connection signal="button_release" from="Player/Input" to="Player/Mover" method="_on_Input_button_release"]

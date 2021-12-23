@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/cuddly_clouds_theme.mp3-f31916b46b5a77a2c22e846c7704f46b.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/themes_compressed/cuddly_clouds_theme.mp3"
+dest_files=[ "res://.import/cuddly_clouds_theme.mp3-f31916b46b5a77a2c22e846c7704f46b.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

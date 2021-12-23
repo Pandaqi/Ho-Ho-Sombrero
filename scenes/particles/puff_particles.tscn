@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="Curve" id=64]
+_data = [ Vector2( 0, 0 ), 0.0, 6.496, 0, 0, Vector2( 0.0803858, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.00227273 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=65]
+curve = SubResource( 64 )
+
+[sub_resource type="ParticlesMaterial" id=66]
+gravity = Vector3( 0, 0, 0 )
+scale_curve = SubResource( 65 )
+
+[sub_resource type="SpatialMaterial" id=68]
+flags_unshaded = true
+
+[sub_resource type="SphereMesh" id=67]
+material = SubResource( 68 )
+radial_segments = 8
+rings = 4
+
+[node name="Particles" type="Particles"]
+local_coords = false
+process_material = SubResource( 66 )
+draw_pass_1 = SubResource( 67 )

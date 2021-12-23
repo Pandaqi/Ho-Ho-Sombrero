@@ -24,6 +24,9 @@ var audio_player = null
 
 const SLIP_DAMPING : float = 0.00001
 
+signal move_stop()
+signal move_start()
+
 func _ready():
 	create_move_audio()
 
@@ -72,8 +75,9 @@ func _integrate_forces(state):
 	var vel_norm = cur_vel_without_y.normalized()
 	var wanted_norm = wanted_vel.normalized()
 	
+	# NOTE: Should really be vec.slerp(other_vec), but that just KEEPS giving errors into infinity
 	if vel_norm.length() == 1 and wanted_norm.length() == 1:
-		wanted_vel = vel_norm.slerp(wanted_norm, 1.0 - temp_slip_factor)
+		wanted_vel = vel_norm.linear_interpolate(wanted_norm, 1.0 - temp_slip_factor)
 	
 	if input_vec.length() <= 0.03:
 		if temp_slip_factor > 0.03:
@@ -90,7 +94,7 @@ func _integrate_forces(state):
 		state.set_angular_velocity(Vector3.ZERO)
 
 	if wanted_vel.length() >= 0.03 and not audio_player.is_playing():
-		audio_player.play()
+		start_moving()
 	
 	wanted_vel = Vector3(wanted_vel.x, cur_vel.y, wanted_vel.z)
 	state.set_linear_velocity(wanted_vel)
@@ -99,6 +103,11 @@ func _integrate_forces(state):
 
 func stop_moving():
 	if audio_player.is_playing(): audio_player.stop()
+	emit_signal("move_stop")
+
+func start_moving():
+	audio_player.play()
+	emit_signal("move_start")
 
 func get_final_speed():
 	return clamp(MOVE_SPEED*speed_modifier, SPEED_BOUNDS.min, SPEED_BOUNDS.max) + extra_speed

@@ -79,17 +79,29 @@ func get_offscreen_data(pos : Vector3):
 	var icon_size : float = 25.0
 	var pos_2d = unproject_position(pos)
 	
+	obj.pos = pos_2d
+	obj.rot = 0
+	
+	var weight = 0
+	
 	if pos_2d.x < m:
-		obj.pos = Vector2(icon_size, pos_2d.y)
-		obj.rot = PI
+		obj.pos.x = icon_size
+		obj.rot += PI
+		weight += 1
 	elif pos_2d.x > (vp.x - m):
-		obj.pos = Vector2(vp.x - icon_size, pos_2d.y)
-		obj.rot = 0
-	elif pos_2d.y < m:
-		obj.pos = Vector2(pos_2d.x, icon_size)
-		obj.rot = 1.5*PI
+		obj.pos.x = vp.x - icon_size
+		obj.rot += 0
+		weight += 1
+	
+	if pos_2d.y < m:
+		obj.pos.y = icon_size
+		obj.rot += 1.5*PI
+		weight += 1
 	elif pos_2d.y > (vp.y - m):
-		obj.pos = Vector2(pos_2d.x, vp.y - icon_size)
-		obj.rot = 0.5*PI
+		obj.pos.y = vp.y - icon_size
+		obj.rot += 0.5*PI
+		weight += 1
+	
+	obj.rot /= weight
 	
 	return obj

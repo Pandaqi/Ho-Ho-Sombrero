@@ -16,6 +16,9 @@ onready var pause_menu = get_node("../PauseMenu")
 onready var powerups = get_node("../Powerups")
 onready var eggs = get_node("../Eggs")
 onready var feedback = get_node("../Feedback")
+onready var main_node = get_node("..")
+
+var puff_particles = preload("res://scenes/particles/self_remove_puff.tscn")
 
 func activate():
 	gui.update_broken(0, target_broken)
@@ -43,6 +46,10 @@ func on_egg_delivered(node, points : int = 1):
 	if eggs_delivered >= (target_delivered - 3):
 		for p in get_tree().get_nodes_in_group("Players"):
 			feedback.create_for(p, "Almost won!")
+
+	var part = puff_particles.instance()
+	part.transform.origin = node.transform.origin
+	main_node.add_child(part)
 	
 	gui.update_delivered(eggs_delivered, target_delivered)
 	eggs.on_egg_delivered(node)

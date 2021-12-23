@@ -10,10 +10,10 @@ void fragment() {
 	float real_pos = UV.y*height;
 	float alpha = 0.0;
 	if(real_pos - floor(real_pos) < 0.5) {
-		alpha = 0.6;
+		alpha = 0.85;
 	}
 	
-	ALBEDO = vec3(0.8,0.8,0.8);
+	ALBEDO = vec3(0.9,0.9,0.9);
 	ALPHA = alpha;
 }"
 

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/desert_theme.mp3-260d7a61c79b345b68d55e07875d8ffd.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/themes_compressed/desert_theme.mp3"
+dest_files=[ "res://.import/desert_theme.mp3-260d7a61c79b345b68d55e07875d8ffd.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -11,6 +11,9 @@ var num_bounces_on_ground : int = 0
 
 onready var body = get_parent()
 onready var powerups = get_node("/root/Main/Powerups")
+onready var main_node = get_node("/root/Main")
+
+var small_puff_particle = preload("res://scenes/particles/self_remove_small_puff.tscn")
 
 func _integrate_forces(state):
 	if not active: return
@@ -57,6 +60,11 @@ func _integrate_forces(state):
 		
 		state.apply_central_impulse(normal * final_bounce_power)
 		body.visuals.on_bounce(original_normal)
+		
+		var part = small_puff_particle.instance()
+		part.transform.origin = body.transform.origin
+		main_node.add_child(part)
+		
 		break
 
 func get_num_unique_players_touched():

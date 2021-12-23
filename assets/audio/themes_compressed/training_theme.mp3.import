@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/training_theme.mp3-3505aa9ccae1ce82f31584b48e44781e.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/themes_compressed/training_theme.mp3"
+dest_files=[ "res://.import/training_theme.mp3-3505aa9ccae1ce82f31584b48e44781e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -28,6 +28,8 @@ var attract_radius : float = 0.0
 var disable_timer : Timer
 const ATTRACT_DISABLE_DUR : float = 2.5
 
+var puff_particles = preload("res://scenes/particles/self_remove_puff.tscn")
+
 func _ready():
 	if has_node("AnimationPlayer"): anim_player = $AnimationPlayer
 	if has_node("DisableTimer"): disable_timer = $DisableTimer
@@ -92,6 +94,10 @@ func shoot_egg(type : String = ""):
 	GAudio.play_dynamic_sound(get_node(barrel_tip), "shoot")
 	feedback.create_for(get_node(barrel_tip), "New Egg!")
 	if anim_player: anim_player.play("Shot")
+	
+	var part = puff_particles.instance()
+	part.transform.origin = e.transform.origin
+	main_node.add_child(part)
 
 func _on_DisableTimer_timeout():
 	get_node(attract_area).get_node("CollisionShape").shape.radius = attract_radius

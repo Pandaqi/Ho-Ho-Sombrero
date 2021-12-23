@@ -7,6 +7,10 @@ onready var status = $Status
 onready var wrapper = $Wrapper
 onready var offscreen = $Offscreen
 
+onready var powerups = get_node("/root/Main/Powerups")
+
+var original_gravity_scale : float
+
 var auto_deliver
 var auto_deliver_module = preload("res://scenes/egg_modules/auto_deliver.tscn")
 
@@ -15,9 +19,15 @@ const VEL_BOUNDS = { 'min': 0.0, 'max': 10.0 }
 signal on_death()
 
 func _ready():
+	original_gravity_scale = gravity_scale
+	change_gravity_scale(powerups.get_global_gravity_mult())
+	
 	if GDict.cfg.auto_deliver_eggs:
 		auto_deliver = auto_deliver_module.instance()
 		add_child(auto_deliver)
+
+func change_gravity_scale(mult : float):
+	gravity_scale = original_gravity_scale * mult
 
 func _integrate_forces(state):
 	breaker._integrate_forces(state)
