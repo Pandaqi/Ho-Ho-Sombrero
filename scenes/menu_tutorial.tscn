@@ -1,12 +1,28 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/ui/arena_tutorials.png" type="Texture" id=1]
+[ext_resource path="res://assets/ui/start_level_reminder.png" type="Texture" id=2]
+[ext_resource path="res://scripts/menu_tutorial.gd" type="Script" id=3]
 
 [node name="Tutorial" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Reminder" type="Sprite" parent="."]
+position = Vector2( 0, -15 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, 6 )
 scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 1 )
 centered = false
 offset = Vector2( -256, -780 )
 hframes = 8
+frame = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

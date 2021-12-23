@@ -71,6 +71,8 @@ func game_over(we_won):
 	print("We won?")
 	print(we_won)
 	
+	GSave.save_level_completion()
+	
 	in_game_over = true
 	get_tree().paused = true
 	
