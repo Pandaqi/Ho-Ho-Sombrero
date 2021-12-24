@@ -9,6 +9,7 @@ var target_broken : int = 20
 var start_time : float = 0.0
 
 var in_game_over : bool = false
+var player_bodies : Array
 
 onready var gui = get_node("../GUI")
 onready var game_over = get_node("../GameOver")

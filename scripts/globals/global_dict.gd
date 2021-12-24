@@ -14,6 +14,7 @@ var base_cfg = {
 	"player_lights": false,
 	"egg_lights": false,
 	"show_map_outline": true,
+	"max_egg_types_in_level": 5
 }
 
 var cfg = {
@@ -36,7 +37,8 @@ var arenas = {
 	
 	"forest": {
 		"eggs_allowed": ["regular", "jump", "dash", "move_faster", "move_slower"],
-		"frame": 1
+		"frame": 1,
+		"max_egg_types_in_level": 3
 	},
 	
 	"desert": {

@@ -3,7 +3,7 @@ extends Node
 var NUM_EGG_BOUNDS
 
 const EGG_CHECK_INTERVAL : float = 5.0
-const NUM_TYPES_BOUNDS = { 'min': 3, 'max': 6 }
+var NUM_TYPES_BOUNDS = { 'min': 3, 'max': 6 }
 var available_types : Array = []
 var active_eggs : Array = []
 
@@ -39,6 +39,8 @@ func activate():
 		'min': max(num_players-1, 1),
 		'max': num_players+1
 	}
+	
+	NUM_TYPES_BOUNDS.max = GDict.cfg.max_egg_types_in_level
 	
 	arena_data = GDict.arenas[G.get_current_arena()]
 	determine_available_types()

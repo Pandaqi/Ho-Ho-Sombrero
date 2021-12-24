@@ -52,6 +52,7 @@ func switch_on():
 	input_enabled = true
 
 func switch_off():
+	emit_signal("move_vec", Vector2.ZERO, 0.16)
 	input_enabled = false
 
 func make_custom():

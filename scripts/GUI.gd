@@ -20,6 +20,9 @@ func _ready():
 		counters.set_visible(false)
 		settings_hint.set_visible(true)
 	
+	if not GDict.cfg.broken_eggs_spawn_powerups:
+		egg_tutorials.set_visible(false)
+	
 	get_tree().get_root().connect("size_changed", self, "on_resize")
 	on_resize()
 

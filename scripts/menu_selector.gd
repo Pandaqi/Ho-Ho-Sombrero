@@ -39,8 +39,8 @@ func start():
 func set_hover(val):
 	selected = val
 	
-	var start = Vector3.ONE
-	var end = Vector3.ONE*2
+	var start = Vector3.ONE*4
+	var end = start*1.25
 	if not val:
 		var temp = end
 		end = start
@@ -102,6 +102,6 @@ func _unhandled_input(ev):
 	if not tutorial.input_allowed: return
 	
 	var keyboard_start = ev.is_action_released("start_level")
-	var joypad_start = (ev is InputEventJoypadButton and GInput.device_already_registered(ev.device) and ev.index == 0)
+	var joypad_start = (ev is InputEventJoypadButton and GInput.device_already_registered(ev.device) and ev.button_index == 0)
 	if keyboard_start or joypad_start:
 		start()
