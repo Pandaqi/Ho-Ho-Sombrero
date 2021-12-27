@@ -45,12 +45,14 @@ func create_menu_player(p_num : int):
 
 func _input(ev):
 	var solo_mode = GInput.get_player_count() == 1
-	if not solo_mode: return
+	if not solo_mode or G.in_menu(): return
 	if ev.is_action_released("switch"):
 		switch_between_players()
 		GAudio.play_static_sound("player_switch")
 
 func switch_between_players():
+	if player_bodies.size() < 2: return
+	
 	var cur_active = player_bodies[0]
 	var new_active = player_bodies[1]
 	

@@ -23,6 +23,7 @@ var num_keyboard_players = 0
 
 func _ready():
 	build_input_map()
+	build_special_solo_controls()
 
 func create_debugging_players():
 	if get_player_count() > 0: return
@@ -99,6 +100,28 @@ func build_input_map():
 					ev.set_axis_value(dir) # <- this one determines if it's positive or negative axis
 					
 					InputMap.action_add_event(key, ev)
+
+func build_special_solo_controls():
+	var keys = ["right", "down", "left", "up"]
+	var axes = [
+		[JOY_AXIS_0, JOY_AXIS_1, JOY_AXIS_0, JOY_AXIS_1],
+		[JOY_AXIS_2, JOY_AXIS_3, JOY_AXIS_2, JOY_AXIS_3]
+	]
+	
+	for i in range(2):
+		for a in range(4):
+			var key = keys[a] + "_" + str(i) + "_solo"
+			var axis = axes[i][a]
+
+			var dir = 1
+			if a >= 2: dir = -1
+			
+			var ev = InputEventJoypadMotion.new()
+			ev.set_device(i)
+			ev.set_axis(axis)
+			ev.set_axis_value(dir)
+			
+			InputMap.action_add_event(key, ev)
 
 func printout_inputmap():
 	var ac = InputMap.get_actions()
